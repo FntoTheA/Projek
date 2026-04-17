@@ -64,7 +64,6 @@ class LinkedList:
             current = current.next
         return result
 
-
 products = LinkedList()
 
 def load_file():
