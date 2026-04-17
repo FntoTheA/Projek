@@ -4,13 +4,10 @@
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
+# Progress : 40%
 # ================================================================================
 
 import os
-
-#Kelompok 2: O2J
-#Kategori Produk Toko Online
-#Progress 40%
 
 FILE = "data_produk.txt"
 
