@@ -76,7 +76,6 @@ class LinkedList:
 
 products = LinkedList()
 
-#Load, save, dan show File dengan template
 def load_file():
     products.head = None
     if not os.path.exists(FILE):
