@@ -4,7 +4,7 @@
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
-# Progress : 40%
+# Aowkaowk
 # ================================================================================
 
 import os
