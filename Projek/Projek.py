@@ -1,6 +1,6 @@
 # ================================================================================
 # Nama Kelompok: 02J
-# Anggota Kelompok: 1. Azhar Fawwaz Haris (Ketua) / A2
+# Anggota Kelompok: 1. Azhar Fawwaz Haris / A2
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
@@ -141,9 +141,7 @@ def update_product():
         return
 
     while True:
-        print("\n===")
-        print(f"UBAH DATA PRODUK: {p.id}")
-        print("===")
+        print(f"\nUBAH DATA PRODUK: {p.id}")
         print(f"1. Nama     : {p.name}")
         print(f"2. Kategori : {p.category}")
         print(f"3. Harga    : {p.price}")
@@ -213,9 +211,7 @@ def search_product():
 
 def main_buyer():
     while True:
-        print("\n===")
-        print("MENU PEMBELI")
-        print("===")
+        print("\nMENU PEMBELI")
         print("1. Lihat Semua Produk")
         print("2. Urutkan Produk")
         print("3. Cari Produk")
@@ -239,9 +235,7 @@ def main_buyer():
 
 def main_seller():
     while True:
-        print("\n===")
         print("MENU PENJUAL")
-        print("===")
         print("1. Tambah Produk")
         print("2. Lihat Semua Produk")
         print("3. Ubah Produk")
@@ -277,9 +271,7 @@ def main_seller():
 def main():
     load_file()
     while True:
-        print("\n===")
-        print("MENU LOGIN")
-        print("===")
+        print("\nMENU LOGIN")
         print("1. Masuk sebagai Pembeli")
         print("2. Masuk sebagai Penjual")
         print("0. Keluar")
