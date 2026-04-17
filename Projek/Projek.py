@@ -64,25 +64,6 @@ class LinkedList:
             current = current.next
         return result
 
-    def sort_by_price(self, ascending=True):
-        if not self.head:
-            return
-        swapped = True
-        while swapped:
-            swapped = False
-            current = self.head
-            while current.next:
-                a, b = current, current.next
-                should_swap = a.price > b.price if ascending else a.price < b.price
-                if should_swap:
-                    a.id,       b.id       = b.id,       a.id
-                    a.name,     b.name     = b.name,     a.name
-                    a.category, b.category = b.category, a.category
-                    a.price,    b.price    = b.price,    a.price
-                    a.stock,    b.stock    = b.stock,    a.stock
-                    swapped = True
-                current = current.next
-
 
 products = LinkedList()
 
@@ -133,7 +114,7 @@ def tambah_produk():
     save_file()
     print(f"✓ '{name}' berhasil ditambahkan.")
 
-def lihat_semua():
+def lihat_produk():
     display()
 
 def ubah_produk():
@@ -143,7 +124,6 @@ def ubah_produk():
     if not p:
         print("Produk tidak ditemukan!"); return
 
-    # Leave blank to keep current value
     name     = input(f"Nama baru     [{p.name}]     : ").strip()
     category = input(f"Kategori baru [{p.category}] : ").strip()
     price    = input(f"Harga baru    [{p.price}]    : ").strip()
@@ -172,53 +152,33 @@ def hapus_produk():
     else:
         print("Batal.")
 
-def cari_produk():
-    keyword = input("Cari nama produk: ").strip()
-    results = products.find_by_name(keyword)
-    print(f"\nHasil pencarian '{keyword}':")
-    display(results)
-
-def sort_produk():
-    print("1. Harga Termurah\n2. Harga Termahal")
-    choice = input("Pilih: ").strip()
-    if choice == "1":
-        products.sort_by_price(ascending=True)
-        display()
-    elif choice == "2":
-        products.sort_by_price(ascending=False)
-        display()
-    else:
-        print("Pilihan tidak valid.")
-
-
 def main():
     load_file()
-
-    MENU = {
-        "1": ("Tambah Produk",  tambah_produk),
-        "2": ("Lihat Semua",    lihat_semua),
-        "3": ("Ubah Produk",    ubah_produk),
-        "4": ("Hapus Produk",   hapus_produk),
-        "5": ("Cari Produk",    cari_produk),
-        "6": ("Sort by Harga",  sort_produk),
-        "0": ("Keluar",         None),
-    }
-
     while True:
-        print("\n====== TOKO ONLINE ======")
-        for key, (label, _) in MENU.items():
-            print(f"  {key}. {label}")
-
-        choice = input("Pilih menu: ").strip()
-
-        if choice == "0":
-            print("Sampai jumpa!"); break
-        elif choice in MENU:
-            MENU[choice][1]()
+        print("\n========================================")
+        print("   SISTEM KATEGORI PRODUK TOKO ONLINE   ")
+        print("========================================")
+        print("1. Tambah Produk")
+        print("2. Lihat Semua Produk")
+        print("3. Ubah Produk")
+        print("4. Hapus Produk")
+        print("0. Keluar")
+        print("========================================")
+        pilihan = input("Pilih menu: ")
+        if pilihan == "1":
+            tambah_produk()
+        elif pilihan == "2":
+            lihat_produk()
+        elif pilihan == "3":
+            ubah_produk()
+        elif pilihan == "4":
+            hapus_produk()
+        elif pilihan == "0":
+            print("\nTerima kasih! Program selesai.")
+            break
         else:
             print("Pilihan tidak valid!")
-
-        input("\n[Enter] untuk lanjut...")
+        input("\nTekan Enter untuk lanjut...")
         os.system("cls" if os.name == "nt" else "clear")
 
 if __name__ == "__main__":
