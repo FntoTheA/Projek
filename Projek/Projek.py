@@ -217,7 +217,7 @@ def main_buyer():
         print("3. Cari Produk")
         print("0. Kembali")
         print("========================================")
-        pilihan = input("Pilih menu: ")
+        pilihan = input("Pilih: ")
         if pilihan == "1":
             view_product()
         elif pilihan == "2":
