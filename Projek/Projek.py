@@ -1,199 +1,225 @@
 import os
 
+FILE = "data_produk.txt"
+
 class Node:
-    def __init__(self, id_produk, nama, kategori, harga, stok):
-        self.id_produk = id_produk
-        self.nama = nama
-        self.kategori = kategori
-        self.harga = harga
-        self.stok = stok
-        self.next = None
+    def __init__(self, id, name, category, price, stock):
+        self.id       = id
+        self.name     = name
+        self.category = category
+        self.price    = price
+        self.stock    = stock
+        self.next     = None
 
 class LinkedList:
     def __init__(self):
         self.head = None
 
-    def tambah(self, id_produk, nama, kategori, harga, stok):
-        node_baru = Node(id_produk, nama, kategori, harga, stok)
+    def append(self, id, name, category, price, stock):
+        new_node = Node(id, name, category, price, stock)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
 
-        if self.head is None:
-            self.head = node_baru
-        else:
-            sekarang = self.head
-            while sekarang.next is not None:
-                sekarang = sekarang.next
-            sekarang.next = node_baru
-
-    def cari(self, id_produk):
-        sekarang = self.head
-        while sekarang is not None:
-            if sekarang.id_produk == id_produk:
-                return sekarang
-            sekarang = sekarang.next
+    def find_by_id(self, id):
+        current = self.head
+        while current:
+            if current.id == id:
+                return current
+            current = current.next
         return None
 
-    def hapus(self, id_produk):
-        if self.head is None:
-            return False
+    def find_by_name(self, keyword):
+        results = []
+        current = self.head
+        while current:
+            if keyword.lower() in current.name.lower():
+                results.append(current)
+            current = current.next
+        return results
 
-        if self.head.id_produk == id_produk:
+    def delete(self, id):
+        if not self.head:
+            return False
+        if self.head.id == id:
             self.head = self.head.next
             return True
-
-        sebelum = self.head
-        sekarang = self.head.next
-        while sekarang is not None:
-            if sekarang.id_produk == id_produk:
-                sebelum.next = sekarang.next
+        prev, current = self.head, self.head.next
+        while current:
+            if current.id == id:
+                prev.next = current.next
                 return True
-            sebelum = sekarang
-            sekarang = sekarang.next
+            prev, current = current, current.next
+        return False
 
-        return False 
+    def to_list(self):
+        result  = []
+        current = self.head
+        while current:
+            result.append(current)
+            current = current.next
+        return result
 
-NAMA_FILE = "data_produk.txt"
-daftar_produk = LinkedList()
+    def sort_by_price(self, ascending=True):
+        if not self.head:
+            return
+        swapped = True
+        while swapped:
+            swapped = False
+            current = self.head
+            while current.next:
+                a, b = current, current.next
+                should_swap = a.price > b.price if ascending else a.price < b.price
+                if should_swap:
+                    a.id,       b.id       = b.id,       a.id
+                    a.name,     b.name     = b.name,     a.name
+                    a.category, b.category = b.category, a.category
+                    a.price,    b.price    = b.price,    a.price
+                    a.stock,    b.stock    = b.stock,    a.stock
+                    swapped = True
+                current = current.next
 
-def baca_file():
-    daftar_produk.head = None
 
-    if not os.path.exists(NAMA_FILE):
+products = LinkedList()
+
+def load_file():
+    products.head = None
+    if not os.path.exists(FILE):
         return
+    with open(FILE) as f:
+        for line in f:
+            data = line.strip().split("|")
+            if len(data) == 5:
+                products.append(data[0], data[1], data[2], int(data[3]), int(data[4]))
 
-    file = open(NAMA_FILE, "r")
-    for baris in file:
-        baris = baris.strip()
-        if baris == "":
-            continue
-        data = baris.split("|")
-        if len(data) == 5:
-            daftar_produk.tambah(data[0], data[1], data[2], int(data[3]), int(data[4]))
-    file.close()
+def save_file():
+    with open(FILE, "w") as f:
+        current = products.head
+        while current:
+            f.write(f"{current.id}|{current.name}|{current.category}|{current.price}|{current.stock}\n")
+            current = current.next
 
-def simpan_file():
-    file = open(NAMA_FILE, "w")
-    sekarang = daftar_produk.head
-    while sekarang is not None:
-        file.write(f"{sekarang.id_produk}|{sekarang.nama}|{sekarang.kategori}|{sekarang.harga}|{sekarang.stok}\n")
-        sekarang = sekarang.next
-    file.close()
+def print_header():
+    print(f"\n{'ID':<8} {'Nama':<20} {'Kategori':<14} {'Harga':>10} {'Stok':>6}")
+    print("-" * 62)
+
+def print_row(node):
+    print(f"{node.id:<8} {node.name:<20} {node.category:<14} {node.price:>10,} {node.stock:>6}")
+
+def display(nodes=None):
+    nodes = nodes if nodes is not None else products.to_list()
+    print_header()
+    if not nodes:
+        print("  (tidak ada data)")
+    else:
+        for node in nodes:
+            print_row(node)
 
 def tambah_produk():
-    print("\n--- TAMBAH PRODUK BARU ---")
-    id_produk = input("ID Produk (contoh P006) : ")
+    id = input("ID Produk  : ").strip()
+    if products.find_by_id(id):
+        print("ID sudah ada!"); return
 
-    if daftar_produk.cari(id_produk) is not None:
-        print("ID sudah ada! Gunakan ID lain.")
-        return
+    name     = input("Nama       : ").strip()
+    category = input("Kategori   : ").strip()
+    price    = int(input("Harga      : "))
+    stock    = int(input("Stok       : "))
 
-    nama = input("Nama Produk              : ")
-    kategori = input("Kategori (Elektronik/Fashion/Makanan) : ")
-    harga = int(input("Harga                    : "))
-    stok = int(input("Stok                     : "))
+    products.append(id, name, category, price, stock)
+    save_file()
+    print(f"✓ '{name}' berhasil ditambahkan.")
 
-    daftar_produk.tambah(id_produk, nama, kategori, harga, stok)
-    simpan_file()
-    print(f"Produk '{nama}' berhasil ditambahkan!")
-
-def lihat_produk():
-    print("\n--- DAFTAR SEMUA PRODUK ---")
-    print("=" * 70)
-    print(f"{'ID':<8} {'Nama':<20} {'Kategori':<12} {'Harga':>10} {'Stok':>6}")
-    print("=" * 70)
-
-    sekarang = daftar_produk.head
-
-    if sekarang is None:
-        print("Belum ada data produk.")
-    else:
-        while sekarang is not None:
-            print(f"{sekarang.id_produk:<8} {sekarang.nama:<20} {sekarang.kategori:<12} {sekarang.harga:>10,} {sekarang.stok:>6}")
-            sekarang = sekarang.next
-
-    print("=" * 70)
+def lihat_semua():
+    display()
 
 def ubah_produk():
-    print("\n--- UBAH DATA PRODUK ---")
-    lihat_produk()
+    display()
+    id = input("\nID produk yang ingin diubah: ").strip()
+    p  = products.find_by_id(id)
+    if not p:
+        print("Produk tidak ditemukan!"); return
 
-    id_produk = input("\nMasukkan ID produk yang ingin diubah: ")
-    produk = daftar_produk.cari(id_produk)
+    # Leave blank to keep current value
+    name     = input(f"Nama baru     [{p.name}]     : ").strip()
+    category = input(f"Kategori baru [{p.category}] : ").strip()
+    price    = input(f"Harga baru    [{p.price}]    : ").strip()
+    stock    = input(f"Stok baru     [{p.stock}]    : ").strip()
 
-    if produk is None:
-        print("Produk tidak ditemukan!")
-        return
+    if name:     p.name     = name
+    if category: p.category = category
+    if price:    p.price    = int(price)
+    if stock:    p.stock    = int(stock)
 
-    print(f"\nData saat ini: {produk.nama} | {produk.kategori} | Rp{produk.harga:,} | Stok: {produk.stok}")
-    print("(Kosongkan jika tidak ingin mengubah)\n")
-
-    nama_baru = input(f"Nama baru [{produk.nama}]       : ")
-    kategori_baru = input(f"Kategori baru [{produk.kategori}] : ")
-    harga_baru = input(f"Harga baru [{produk.harga}]      : ")
-    stok_baru = input(f"Stok baru [{produk.stok}]        : ")
-
-    if nama_baru != "":
-        produk.nama = nama_baru
-    if kategori_baru != "":
-        produk.kategori = kategori_baru
-    if harga_baru != "":
-        produk.harga = int(harga_baru)
-    if stok_baru != "":
-        produk.stok = int(stok_baru)
-
-    simpan_file()
-    print("Data produk berhasil diubah!")
+    save_file()
+    print("✓ Data berhasil diperbarui.")
 
 def hapus_produk():
-    print("\n--- HAPUS PRODUK ---")
-    lihat_produk()
+    display()
+    id = input("\nID produk yang ingin dihapus: ").strip()
+    p  = products.find_by_id(id)
+    if not p:
+        print("Produk tidak ditemukan!"); return
 
-    id_produk = input("\nMasukkan ID produk yang ingin dihapus: ")
-    produk = daftar_produk.cari(id_produk)
-
-    if produk is None:
-        print("Produk tidak ditemukan!")
-        return
-
-    konfirmasi = input(f"Yakin hapus '{produk.nama}'? (y/n): ")
-    if konfirmasi.lower() == "y":
-        daftar_produk.hapus(id_produk)
-        simpan_file()
-        print(f"Produk '{produk.nama}' berhasil dihapus!")
+    confirm = input(f"Yakin hapus '{p.name}'? (y/n): ")
+    if confirm.lower() == "y":
+        products.delete(id)
+        save_file()
+        print(f"✓ '{p.name}' berhasil dihapus.")
     else:
-        print("Batal menghapus.")
+        print("Batal.")
 
-def menu_utama():
-    baca_file()
+def cari_produk():
+    keyword = input("Cari nama produk: ").strip()
+    results = products.find_by_name(keyword)
+    print(f"\nHasil pencarian '{keyword}':")
+    display(results)
+
+def sort_produk():
+    print("1. Harga Termurah\n2. Harga Termahal")
+    choice = input("Pilih: ").strip()
+    if choice == "1":
+        products.sort_by_price(ascending=True)
+        display()
+    elif choice == "2":
+        products.sort_by_price(ascending=False)
+        display()
+    else:
+        print("Pilihan tidak valid.")
+
+
+def main():
+    load_file()
+
+    MENU = {
+        "1": ("Tambah Produk",  tambah_produk),
+        "2": ("Lihat Semua",    lihat_semua),
+        "3": ("Ubah Produk",    ubah_produk),
+        "4": ("Hapus Produk",   hapus_produk),
+        "5": ("Cari Produk",    cari_produk),
+        "6": ("Sort by Harga",  sort_produk),
+        "0": ("Keluar",         None),
+    }
 
     while True:
-        print("\n========================================")
-        print("   SISTEM KATEGORI PRODUK TOKO ONLINE   ")
-        print("========================================")
-        print("1. Tambah Produk")
-        print("2. Lihat Semua Produk")
-        print("3. Ubah Produk")
-        print("4. Hapus Produk")
-        print("0. Keluar")
-        print("========================================")
+        print("\n====== TOKO ONLINE ======")
+        for key, (label, _) in MENU.items():
+            print(f"  {key}. {label}")
 
-        pilihan = input("Pilih menu: ")
+        choice = input("Pilih menu: ").strip()
 
-        if pilihan == "1":
-            tambah_produk()
-        elif pilihan == "2":
-            lihat_produk()
-        elif pilihan == "3":
-            ubah_produk()
-        elif pilihan == "4":
-            hapus_produk()
-        elif pilihan == "0":
-            print("\nTerima kasih! Program selesai.")
-            break
+        if choice == "0":
+            print("Sampai jumpa!"); break
+        elif choice in MENU:
+            MENU[choice][1]()
         else:
             print("Pilihan tidak valid!")
 
-        input("\nTekan Enter untuk lanjut...")
+        input("\n[Enter] untuk lanjut...")
         os.system("cls" if os.name == "nt" else "clear")
 
 if __name__ == "__main__":
-    menu_utama()
+    main()
