@@ -143,7 +143,7 @@ def delete_product():
     if not p:
         print("Produk tidak ditemukan."); return
 
-    confirm = input(f"Yakin hapus '{p.name}'? (y/n): ")
+    confirm = input(f"Hapus '{p.name}'? (y/n): ")
     if confirm.lower() == "y":
         products.delete(id)
         save_file()
