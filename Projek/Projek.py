@@ -1,5 +1,9 @@
 import os
 
+#Kelompok 2: O2J
+#Kategori Produk Toko Online
+#Progress 40%
+
 FILE = "data_produk.txt"
 
 class Node:
