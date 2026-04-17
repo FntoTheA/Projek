@@ -100,7 +100,7 @@ def display(nodes=None):
         for node in nodes:
             print_row(node)
 
-def tambah_produk():
+def add_product():
     id = input("ID Produk  : ").strip()
     if products.find_by_id(id):
         print("ID sudah ada!"); return
@@ -114,10 +114,10 @@ def tambah_produk():
     save_file()
     print(f"✓ '{name}' berhasil ditambahkan.")
 
-def lihat_produk():
+def view_products():
     display()
 
-def ubah_produk():
+def update_product():
     display()
     id = input("\nID produk yang ingin diubah: ").strip()
     p  = products.find_by_id(id)
@@ -137,7 +137,7 @@ def ubah_produk():
     save_file()
     print("✓ Data berhasil diperbarui.")
 
-def hapus_produk():
+def delete_product():
     display()
     id = input("\nID produk yang ingin dihapus: ").strip()
     p  = products.find_by_id(id)
@@ -166,13 +166,13 @@ def main():
         print("========================================")
         pilihan = input("Pilih menu: ")
         if pilihan == "1":
-            tambah_produk()
+            add_product()
         elif pilihan == "2":
-            lihat_produk()
+            view_products()
         elif pilihan == "3":
-            ubah_produk()
+            update_product()
         elif pilihan == "4":
-            hapus_produk()
+            delete_product()
         elif pilihan == "0":
             print("\nTerima kasih! Program selesai.")
             break
