@@ -99,15 +99,20 @@ def display(nodes=None):
         for node in nodes:
             print_row(node)
 
-def add_product():
+def tambah_produk():
     id = input("ID Produk  : ").strip()
     if products.find_by_id(id):
         print("ID sudah ada!"); return
 
     name     = input("Nama       : ").strip()
     category = input("Kategori   : ").strip()
-    price    = int(input("Harga      : "))
-    stock    = int(input("Stok       : "))
+
+    try:
+        price    = int(input("Harga      : "))
+        stock    = int(input("Stok       : "))
+    except ValueError:
+        print("Harga dan Stok harus berupa angka! Produk gagal ditambahkan.")
+        return
 
     products.append(id, name, category, price, stock)
     save_file()
