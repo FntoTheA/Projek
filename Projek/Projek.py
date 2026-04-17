@@ -11,6 +11,7 @@ import os
 
 FILE = "data_produk.txt"
 
+# LL untuk data
 class Node:
     def __init__(self, id, name, category, price, stock):
         self.id       = id
@@ -75,6 +76,7 @@ class LinkedList:
 
 products = LinkedList()
 
+#Load, save, dan show File dengan template
 def load_file():
     products.head = None
     if not os.path.exists(FILE):
@@ -107,7 +109,7 @@ def display(nodes=None):
     else:
         for node in nodes:
             print_row(node)
-
+#CRUD
 def add_product():
     id = input("ID Produk  : ").strip()
     if products.find_by_id(id):
@@ -160,6 +162,7 @@ def delete_product():
     else:
         print("Batal.")
 
+#Main Func
 def main():
     load_file()
     while True:
