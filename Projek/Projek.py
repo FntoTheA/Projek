@@ -1,6 +1,6 @@
 # ================================================================================
 # Nama Kelompok: 02J
-# Anggota Kelompok: 1. Azhar Fawwaz Haris / A2
+# Anggota Kelompok: 1. Azhar Fawwaz Haris (Ketua) / A2
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
@@ -129,23 +129,60 @@ def view_product():
 
 def update_product():
     display()
-    id = input("\nID produk yang ingin diubah: ").strip()
+    id = input("\nPilih produk (ID): ").strip()
     p  = products.find_by_id(id)
+    
     if not p:
-        print("Produk tidak ditemukan."); return
+        print("Produk tidak ditemukan.")
+        return
 
-    name     = input(f"Nama baru     [{p.name}]     : ").strip()
-    category = input(f"Kategori baru [{p.category}] : ").strip()
-    price    = input(f"Harga baru    [{p.price}]    : ").strip()
-    stock    = input(f"Stok baru     [{p.stock}]    : ").strip()
-
-    if name:     p.name     = name
-    if category: p.category = category
-    if price:    p.price    = int(price)
-    if stock:    p.stock    = int(stock)
-
-    save_file()
-    print("Data berhasil diperbarui.")
+    while True:
+        print("\n----------------------------------------")
+        print(f"       UBAH DATA PRODUK: {p.id}")
+        print("----------------------------------------")
+        print(f"1. Nama     : {p.name}")
+        print(f"2. Kategori : {p.category}")
+        print(f"3. Harga    : {p.price}")
+        print(f"4. Stok     : {p.stock}")
+        print("0. Selesai")
+        
+        pilihan = input("Pilih: ").strip()
+        
+        if pilihan == "1":
+            name = input(f"Nama baru [{p.name}]: ").strip()
+            if name: 
+                p.name = name
+                print("Nama berhasil diubah.")
+                
+        elif pilihan == "2":
+            category = input(f"Kategori baru [{p.category}]: ").strip()
+            if category: 
+                p.category = category.title()
+                print("Kategori berhasil diubah.")
+                
+        elif pilihan == "3":
+            price = input(f"Harga baru [{p.price}]: ").strip()
+            if price.isdigit(): 
+                p.price = int(price)
+                print("Harga berhasil diubah.")
+            elif price:
+                print("Harga harus berupa angka.")
+                
+        elif pilihan == "4":
+            stock = input(f"Stok baru [{p.stock}]: ").strip()
+            if stock.isdigit(): 
+                p.stock = int(stock)
+                print("Stok berhasil diubah.")
+            elif stock:
+                print("Stok harus berupa angka.")
+                
+        elif pilihan == "0":
+            save_file()
+            print("\nData berhasil diperbarui dan disimpan ke file.")
+            break
+            
+        else:
+            print("Pilihan tidak valid.")
 
 def delete_product():
     display()
@@ -163,9 +200,11 @@ def delete_product():
         print("Batal.")
 
 def sort_product():
+    print("Coming soon!")
     pass
 
 def search_product():
+    print("Coming soon!")
     pass
 
 def main_buyer():
