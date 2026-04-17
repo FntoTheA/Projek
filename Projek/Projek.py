@@ -124,7 +124,7 @@ def add_product():
     save_file()
     print(f"'{name}' berhasil ditambahkan.")
 
-def view_products():
+def view_product():
     display()
 
 def update_product():
@@ -162,35 +162,100 @@ def delete_product():
     else:
         print("Batal.")
 
-#Main Func
-def main():
-    load_file()
+def sort_product():
+    pass
+
+def search_product():
+    pass
+
+def main_buyer():
     while True:
         print("\n========================================")
-        print("   SISTEM KATEGORI PRODUK TOKO ONLINE   ")
+        print("             MENU PEMBELI               ")
+        print("========================================")
+        print("1. Lihat Semua Produk")
+        print("2. Urutkan Produk")
+        print("3. Cari Produk")
+        print("0. Kembali")
+        print("========================================")
+        pilihan = input("Pilih menu: ")
+        if pilihan == "1":
+            view_product()
+        elif pilihan == "2":
+            sort_product()
+        elif pilihan == "3":
+            search_product()
+        elif pilihan == "0":
+            os.system("cls" if os.name == "nt" else "clear")
+            break
+        else:
+            print("Pilihan tidak valid")
+        
+        if pilihan != "0":
+            input("\nTekan Enter untuk lanjut...")
+            os.system("cls" if os.name == "nt" else "clear")
+
+def main_seller():
+    while True:
+        print("\n========================================")
+        print("             MENU PENJUAL               ")
         print("========================================")
         print("1. Tambah Produk")
         print("2. Lihat Semua Produk")
         print("3. Ubah Produk")
         print("4. Hapus Produk")
-        print("0. Keluar")
+        print("5. Urutkan Produk")
+        print("6. Cari Produk")
+        print("0. Kembali")
         print("========================================")
-        pilihan = input("Pilih menu: ")
+        pilihan = input("Pilih: ")
         if pilihan == "1":
             add_product()
         elif pilihan == "2":
-            view_products()
+            view_product()
         elif pilihan == "3":
             update_product()
         elif pilihan == "4":
             delete_product()
+        elif pilihan == "5":
+            sort_product()
+        elif pilihan == "6":
+            search_product()
+        elif pilihan == "0":
+            os.system("cls" if os.name == "nt" else "clear")
+            break
+        else:
+            print("Pilihan tidak valid")
+        
+        if pilihan != "0":
+            input("\nTekan Enter untuk lanjut...")
+            os.system("cls" if os.name == "nt" else "clear")
+
+#Main Func
+def main():
+    load_file()
+    while True:
+        print("\n========================================")
+        print("             MENU LOGIN                 ")
+        print("========================================")
+        print("1. Masuk sebagai Pembeli")
+        print("2. Masuk sebagai Penjual")
+        print("0. Keluar")
+        print("========================================")
+        pilihan = input("Pilih: ")
+        if pilihan == "1":
+            os.system("cls" if os.name == "nt" else "clear")
+            main_buyer()
+        elif pilihan == "2":
+            os.system("cls" if os.name == "nt" else "clear")
+            main_seller()
         elif pilihan == "0":
             print("\nProgram selesai.")
             break
         else:
             print("Pilihan tidak valid")
-        input("\nTekan Enter untuk lanjut...")
-        os.system("cls" if os.name == "nt" else "clear")
+            input("\nTekan Enter untuk lanjut...")
+            os.system("cls" if os.name == "nt" else "clear")
 
 if __name__ == "__main__":
     main()
