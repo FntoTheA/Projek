@@ -1,36 +1,29 @@
 import os
 
-#Projek Algoritma dan Struktur Data
-
 class Node:
     def __init__(self, id_produk, nama, kategori, harga, stok):
-        self.id_produk = id_produk   # contoh: "P001"
-        self.nama = nama             # contoh: "Laptop Asus"
-        self.kategori = kategori     # contoh: "Elektronik"
-        self.harga = harga           # contoh: 7500000
-        self.stok = stok             # contoh: 10
-        self.next = None             # sambungan ke kotak berikutnya
+        self.id_produk = id_produk
+        self.nama = nama
+        self.kategori = kategori
+        self.harga = harga
+        self.stok = stok
+        self.next = None
 
 class LinkedList:
     def __init__(self):
-        self.head = None  # awalnya barisan kosong
+        self.head = None
 
-    # Tambah data di belakang
     def tambah(self, id_produk, nama, kategori, harga, stok):
         node_baru = Node(id_produk, nama, kategori, harga, stok)
 
-        # Kalau masih kosong, node baru jadi head
         if self.head is None:
             self.head = node_baru
         else:
-            # Jalan ke paling belakang
             sekarang = self.head
             while sekarang.next is not None:
                 sekarang = sekarang.next
-            # Sambungkan
             sekarang.next = node_baru
 
-    # Cari data berdasarkan ID
     def cari(self, id_produk):
         sekarang = self.head
         while sekarang is not None:
@@ -39,63 +32,45 @@ class LinkedList:
             sekarang = sekarang.next
         return None
 
-    # Hapus data berdasarkan ID
     def hapus(self, id_produk):
-        # Kasus 1: Linked list kosong
         if self.head is None:
             return False
 
-        # Kasus 2: Yang dihapus ada di paling depan (head)
         if self.head.id_produk == id_produk:
             self.head = self.head.next
             return True
 
-        # Kasus 3: Yang dihapus ada di tengah/belakang
         sebelum = self.head
         sekarang = self.head.next
         while sekarang is not None:
             if sekarang.id_produk == id_produk:
-                sebelum.next = sekarang.next  # lompati node yang dihapus
+                sebelum.next = sekarang.next
                 return True
             sebelum = sekarang
             sekarang = sekarang.next
 
-        return False  # tidak ketemu
-
-
-# ============================================================
-# VARIABEL GLOBAL
-# ============================================================
+        return False 
 
 NAMA_FILE = "data_produk.txt"
 daftar_produk = LinkedList()
 
-
-# ============================================================
-# FILE HANDLING: BACA DAN SIMPAN DATA
-# ============================================================
-
 def baca_file():
-    """Baca data dari file txt, masukkan ke linked list."""
-    daftar_produk.head = None  # kosongkan dulu
+    daftar_produk.head = None
 
     if not os.path.exists(NAMA_FILE):
-        return  # file belum ada, skip
+        return
 
     file = open(NAMA_FILE, "r")
     for baris in file:
         baris = baris.strip()
         if baris == "":
             continue
-        # Format: ID|Nama|Kategori|Harga|Stok
         data = baris.split("|")
         if len(data) == 5:
             daftar_produk.tambah(data[0], data[1], data[2], int(data[3]), int(data[4]))
     file.close()
 
-
 def simpan_file():
-    """Simpan semua data dari linked list ke file txt."""
     file = open(NAMA_FILE, "w")
     sekarang = daftar_produk.head
     while sekarang is not None:
@@ -103,17 +78,10 @@ def simpan_file():
         sekarang = sekarang.next
     file.close()
 
-
-# ============================================================
-# CRUD: CREATE (Tambah Produk)
-# ============================================================
-
 def tambah_produk():
     print("\n--- TAMBAH PRODUK BARU ---")
-
     id_produk = input("ID Produk (contoh P006) : ")
 
-    # Cek apakah ID sudah ada
     if daftar_produk.cari(id_produk) is not None:
         print("ID sudah ada! Gunakan ID lain.")
         return
@@ -126,11 +94,6 @@ def tambah_produk():
     daftar_produk.tambah(id_produk, nama, kategori, harga, stok)
     simpan_file()
     print(f"Produk '{nama}' berhasil ditambahkan!")
-
-
-# ============================================================
-# CRUD: READ (Lihat Semua Produk)
-# ============================================================
 
 def lihat_produk():
     print("\n--- DAFTAR SEMUA PRODUK ---")
@@ -148,11 +111,6 @@ def lihat_produk():
             sekarang = sekarang.next
 
     print("=" * 70)
-
-
-# ============================================================
-# CRUD: UPDATE (Ubah Data Produk)
-# ============================================================
 
 def ubah_produk():
     print("\n--- UBAH DATA PRODUK ---")
@@ -185,11 +143,6 @@ def ubah_produk():
     simpan_file()
     print("Data produk berhasil diubah!")
 
-
-# ============================================================
-# CRUD: DELETE (Hapus Produk)
-# ============================================================
-
 def hapus_produk():
     print("\n--- HAPUS PRODUK ---")
     lihat_produk()
@@ -209,13 +162,8 @@ def hapus_produk():
     else:
         print("Batal menghapus.")
 
-
-# ============================================================
-# MENU UTAMA
-# ============================================================
-
 def menu_utama():
-    baca_file()  # Muat data dari file saat program mulai
+    baca_file()
 
     while True:
         print("\n========================================")
@@ -246,11 +194,6 @@ def menu_utama():
 
         input("\nTekan Enter untuk lanjut...")
         os.system("cls" if os.name == "nt" else "clear")
-
-
-# ============================================================
-# JALANKAN PROGRAM
-# ============================================================
 
 if __name__ == "__main__":
     menu_utama()
