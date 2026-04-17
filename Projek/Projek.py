@@ -76,13 +76,14 @@ class LinkedList:
 
 products = LinkedList()
 
+#Load, save, dan show File dengan template
 def load_file():
     products.head = None
     if not os.path.exists(FILE):
         return
     with open(FILE) as f:
         for line in f:
-            data = line.strip().split("|")
+            data = line.strip().split(",")
             if len(data) == 5:
                 products.append(data[0], data[1], data[2], int(data[3]), int(data[4]))
 
@@ -90,24 +91,28 @@ def save_file():
     with open(FILE, "w") as f:
         current = products.head
         while current:
-            f.write(f"{current.id}|{current.name}|{current.category}|{current.price}|{current.stock}\n")
+            f.write(f"{current.id},{current.name},{current.category},{current.price},{current.stock}\n")
             current = current.next
 
-def print_header():
-    print(f"\n{'ID':<8} {'Nama':<20} {'Kategori':<14} {'Harga':>10} {'Stok':>6}")
-    print("-" * 62)
+def print_header(max_name=30, max_cat=20):
+    print(f"\n{'ID':<8} {'Nama':<{max_name}} {'Kategori':<{max_cat}} {'Harga':>10} {'Stok':>6}")
+    total_len = 8 + 1 + max_name + 1 + max_cat + 1 + 10 + 1 + 6
+    print("-" * total_len)
 
-def print_row(node):
-    print(f"{node.id:<8} {node.name:<20} {node.category:<14} {node.price:>10,} {node.stock:>6}")
+def print_row(node, max_name=30, max_cat=20):
+    print(f"{node.id:<8} {node.name:<{max_name}} {node.category:<{max_cat}} {node.price:>10,} {node.stock:>6}")
 
 def display(nodes=None):
     nodes = nodes if nodes is not None else products.to_list()
-    print_header()
     if not nodes:
+        print_header()
         print("  (tidak ada data)")
     else:
+        max_name = max(30, max(len(node.name) for node in nodes))
+        max_cat = max(20, max(len(node.category) for node in nodes))
+        print_header(max_name, max_cat)
         for node in nodes:
-            print_row(node)
+            print_row(node, max_name, max_cat)
 #CRUD
 def add_product():
     id = input("ID Produk  : ").strip()
