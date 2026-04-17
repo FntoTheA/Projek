@@ -99,24 +99,19 @@ def display(nodes=None):
         for node in nodes:
             print_row(node)
 
-def tambah_produk():
+def add_product():
     id = input("ID Produk  : ").strip()
     if products.find_by_id(id):
-        print("ID sudah ada!"); return
+        print("ID sudah ada."); return
 
     name     = input("Nama       : ").strip()
     category = input("Kategori   : ").strip()
-
-    try:
-        price    = int(input("Harga      : "))
-        stock    = int(input("Stok       : "))
-    except ValueError:
-        print("Harga dan Stok harus berupa angka! Produk gagal ditambahkan.")
-        return
+    price    = int(input("Harga      : "))
+    stock    = int(input("Stok       : "))
 
     products.append(id, name, category, price, stock)
     save_file()
-    print(f"✓ '{name}' berhasil ditambahkan.")
+    print(f"'{name}' berhasil ditambahkan.")
 
 def view_products():
     display()
@@ -126,7 +121,7 @@ def update_product():
     id = input("\nID produk yang ingin diubah: ").strip()
     p  = products.find_by_id(id)
     if not p:
-        print("Produk tidak ditemukan!"); return
+        print("Produk tidak ditemukan."); return
 
     name     = input(f"Nama baru     [{p.name}]     : ").strip()
     category = input(f"Kategori baru [{p.category}] : ").strip()
@@ -139,20 +134,20 @@ def update_product():
     if stock:    p.stock    = int(stock)
 
     save_file()
-    print("✓ Data berhasil diperbarui.")
+    print("Data berhasil diperbarui.")
 
 def delete_product():
     display()
     id = input("\nID produk yang ingin dihapus: ").strip()
     p  = products.find_by_id(id)
     if not p:
-        print("Produk tidak ditemukan!"); return
+        print("Produk tidak ditemukan."); return
 
     confirm = input(f"Yakin hapus '{p.name}'? (y/n): ")
     if confirm.lower() == "y":
         products.delete(id)
         save_file()
-        print(f"✓ '{p.name}' berhasil dihapus.")
+        print(f"'{p.name}' berhasil dihapus.")
     else:
         print("Batal.")
 
@@ -178,10 +173,10 @@ def main():
         elif pilihan == "4":
             delete_product()
         elif pilihan == "0":
-            print("\nTerima kasih! Program selesai.")
+            print("\nProgram selesai.")
             break
         else:
-            print("Pilihan tidak valid!")
+            print("Pilihan tidak valid")
         input("\nTekan Enter untuk lanjut...")
         os.system("cls" if os.name == "nt" else "clear")
 
