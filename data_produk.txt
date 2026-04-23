@@ -1,1 +1,37 @@
-E0194|LG TV|TV|120000|13
+001, Ayam Broiler Khas Grobogan, Makanan, 69000, 69
+002, Lato Lato Mojokerto, Mainan, 15000, 120
+003, Buah Khuldi Samarinda, Buah, 25000, 50
+004, Pischok Lumer Probolinggo, Snack, 10000, 80
+005, Bandung Lautan Api, Tiket, 50000, 30
+006, Rudal Jawa, Mainan, 999999, 5
+007, Yanto Pasuruan, Tiket, 0, 1
+008, Gendang Klutuk Sunda, Mainan, 20000, 40
+009, Fuad Dua Belas, Jasa, 0, 12
+010, Tanah Longsor Himalaya, Tiket, 75000, 20
+011, Hollad Bakery Grobogan, Makanan, 30000, 60
+012, Gelombang Tsunami India, Tiket, 100000, 10
+013, Kuda Lumping Ponorogo, Mainan, 35000, 25
+014, Laba Laba Sunda, Mainan, 5000, 70
+015, Laba Laba Jawa, Mainan, 5000, 70
+016, Nasi Cumi Hitam Bertelor Madura, Makanan, 20000, 45
+017, Badai Topan Selat Karimata, Tiket, 85000, 15
+018, Virus Zombie Minang, Obat, 666666, 3
+019, Rambutan Ponorogo, Buah, 12000, 90
+020, Buah Salak Ngawi, Buah, 10000, 100
+021, Jamur Enoki Purwokerto, Makanan, 18000, 40
+022, Kadal Ngawi, Hewan, 50000, 10
+023, Badak Jawa Cula Dua, Hewan, 9999999, 1
+024, Zombie Bandung, Tiket, 70000, 15
+025, Martabak Meksiko Mas Fuad, Makanan, 25000, 35
+026, Mas Faiz Joget Kece Banget, Jasa, 10000, 20
+027, Mas Reza Kece Banget, Jasa, 10000, 20
+028, Mas Fuad Menghitamkan, Jasa, 15000, 10
+029, Jembatan Pelintasan Ngawi, Tiket, 5000, 100
+030, Ayam Kate Vs Ayam Utan, Hewan, 75000, 12
+031, Beras Ketan Sumedang, Makanan, 20000, 60
+032, Monyet Ijo Banyumas, Hewan, 80000, 8
+033, Batu Akik Madura, Aksesoris, 50000, 25
+034, Kopi Vietnam Cirebon, Minuman, 15000, 70
+035, Bakso Mercon Kediri, Makanan, 18000, 55
+036, Tikus Got Kalimantan, Hewan, 10000, 30
+037, Kereta Api Argo Ngawi Jes Gejes, Tiket, 150000, 10

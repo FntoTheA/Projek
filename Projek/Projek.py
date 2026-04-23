@@ -1,10 +1,10 @@
 # ================================================================================
 # Nama Kelompok: 02J
-# Anggota Kelompok: 1. Azhar Fawwaz Haris / A2
+# Anggota Kelompok: 1. Azhar Fawwaz Haris (Ketua) / A2
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
-# Aowkaowk
+# Progress : 40%
 # ================================================================================
 
 import os
@@ -141,7 +141,9 @@ def update_product():
         return
 
     while True:
-        print(f"\nUBAH DATA PRODUK: {p.id}")
+        print("\n----------------------------------------")
+        print(f"       UBAH DATA PRODUK: {p.id}")
+        print("----------------------------------------")
         print(f"1. Nama     : {p.name}")
         print(f"2. Kategori : {p.category}")
         print(f"3. Harga    : {p.price}")
@@ -211,11 +213,14 @@ def search_product():
 
 def main_buyer():
     while True:
-        print("\nMENU PEMBELI")
+        print("\n========================================")
+        print("             MENU PEMBELI               ")
+        print("========================================")
         print("1. Lihat Semua Produk")
         print("2. Urutkan Produk")
         print("3. Cari Produk")
         print("0. Kembali")
+        print("========================================")
         pilihan = input("Pilih: ")
         if pilihan == "1":
             view_product()
@@ -235,7 +240,9 @@ def main_buyer():
 
 def main_seller():
     while True:
-        print("MENU PENJUAL")
+        print("\n========================================")
+        print("             MENU PENJUAL               ")
+        print("========================================")
         print("1. Tambah Produk")
         print("2. Lihat Semua Produk")
         print("3. Ubah Produk")
@@ -243,7 +250,7 @@ def main_seller():
         print("5. Urutkan Produk")
         print("6. Cari Produk")
         print("0. Kembali")
-
+        print("========================================")
         pilihan = input("Pilih: ")
         if pilihan == "1":
             add_product()
@@ -254,7 +261,30 @@ def main_seller():
         elif pilihan == "4":
             delete_product()
         elif pilihan == "5":
-            sort_product()
+            print("1. Berdasarkan Urutan Abjad") 
+            print("2. Berdasarkan Kategori")
+            print("3. Berdasarkan Harga")
+            print("4. Berdasarkan Stok") 
+            print("0. Kembali")
+            pilihan_sorting = input("Pilih:")
+            match pilihan_sorting:
+                case "1":
+                    # sortingUrutanAbjad()
+                    pass
+                case "2":
+                    #sortingBerdasarkanKategori()
+                    pass
+                case "3":
+                    # sortingBerdasarkanHarga()
+                    pass
+                case "4":
+                    # sortingBerdasarkanStok()
+                    pass
+                case "0":
+                    break
+                case _:
+                    print("Pilihan tidak valid")
+            
         elif pilihan == "6":
             search_product()
         elif pilihan == "0":
@@ -271,10 +301,13 @@ def main_seller():
 def main():
     load_file()
     while True:
-        print("\nMENU LOGIN")
+        print("\n========================================")
+        print("             MENU LOGIN                 ")
+        print("========================================")
         print("1. Masuk sebagai Pembeli")
         print("2. Masuk sebagai Penjual")
         print("0. Keluar")
+        print("========================================")
         pilihan = input("Pilih: ")
         if pilihan == "1":
             os.system("cls" if os.name == "nt" else "clear")
