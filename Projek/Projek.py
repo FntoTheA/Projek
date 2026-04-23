@@ -43,6 +43,61 @@ class LinkedList:
             current = current.next
         return None
 
+    # Generic Merge Sort
+    def mergeSort(self, head, criteria):
+        if not head or not head.next:
+            return head
+        
+        middle = self.getmiddle(head)
+        next_middle = middle.next
+        middle.next = None
+        
+        left = self.mergeSort(head, criteria)
+        right = self.mergeSort(next_middle, criteria)
+        
+        return self.sortedMerge(left, right, criteria)
+
+    def getmiddle(self, head):
+        if not head:
+            return head
+        
+        slow = head
+        fast = head.next
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+
+    def sortedMerge(self, a, b, criteria):
+        if not a:
+            return b
+        if not b:
+            return a
+        
+        val_a = getattr(a, criteria)
+        val_b = getattr(b, criteria)
+        
+        if val_a <= val_b:
+            result = a
+            result.next = self.sortedMerge(a.next, b, criteria)
+        else:
+            result = b
+            result.next = self.sortedMerge(a, b.next, criteria)
+        return result
+
+    def sortingUrutanAbjad(self):
+        self.head = self.mergeSort(self.head, "name")
+
+    def sortingBerdasarkanKategori(self):
+        self.head = self.mergeSort(self.head, "category")
+
+    def sortingBerdasarkanHarga(self):
+        self.head = self.mergeSort(self.head, "price")
+
+    def sortingBerdasarkanStok(self):
+        self.head = self.mergeSort(self.head, "stock")
+
     def find_by_name(self, keyword):
         results = []
         current = self.head
@@ -204,8 +259,29 @@ def delete_product():
         print("Batal.")
 
 def sort_product():
-    print("Coming soon!")
-    pass
+    print("\n1. Berdasarkan Urutan Abjad") 
+    print("2. Berdasarkan Kategori")
+    print("3. Berdasarkan Harga")
+    print("4. Berdasarkan Stok") 
+    print("0. Kembali")
+    pilihan_sorting = input("Pilih: ").strip()
+    match pilihan_sorting:
+        case "1":
+            products.sortingUrutanAbjad()
+            display()
+        case "2":
+            products.sortingBerdasarkanKategori()
+            display()
+        case "3":
+            products.sortingBerdasarkanHarga()
+            display()
+        case "4":
+            products.sortingBerdasarkanStok()
+            display()
+        case "0":
+            pass
+        case _:
+            print("Pilihan tidak valid")
 
 def search_product():
     print("Coming soon!")
@@ -261,30 +337,7 @@ def main_seller():
         elif pilihan == "4":
             delete_product()
         elif pilihan == "5":
-            print("1. Berdasarkan Urutan Abjad") 
-            print("2. Berdasarkan Kategori")
-            print("3. Berdasarkan Harga")
-            print("4. Berdasarkan Stok") 
-            print("0. Kembali")
-            pilihan_sorting = input("Pilih:")
-            match pilihan_sorting:
-                case "1":
-                    # sortingUrutanAbjad()
-                    pass
-                case "2":
-                    #sortingBerdasarkanKategori()
-                    pass
-                case "3":
-                    # sortingBerdasarkanHarga()
-                    pass
-                case "4":
-                    # sortingBerdasarkanStok()
-                    pass
-                case "0":
-                    break
-                case _:
-                    print("Pilihan tidak valid")
-            
+            sort_product()
         elif pilihan == "6":
             search_product()
         elif pilihan == "0":
