@@ -35,6 +35,7 @@ class LinkedList:
             current = current.next
         current.next = new_node
 
+    #SequentialSearch
     def find_by_id(self, id):
         current = self.head
         while current:
@@ -42,6 +43,24 @@ class LinkedList:
                 return current
             current = current.next
         return None
+
+    def find_by_name(self, keyword):
+        results = []
+        current = self.head
+        while current:
+            if keyword.lower() in current.name.lower():
+                results.append(current)
+            current = current.next
+        return results
+
+    def find_by_category(self, category):
+        results = []
+        current = self.head
+        while current:
+            if category.lower() in current.category.lower():
+                results.append(current)
+            current = current.next
+        return results
 
     # Generic Merge Sort
     def mergeSort(self, head, criteria):
@@ -98,14 +117,7 @@ class LinkedList:
     def sortingBerdasarkanStok(self):
         self.head = self.mergeSort(self.head, "stock")
 
-    def find_by_name(self, keyword):
-        results = []
-        current = self.head
-        while current:
-            if keyword.lower() in current.name.lower():
-                results.append(current)
-            current = current.next
-        return results
+  
 
     def delete(self, id):
         if not self.head:
@@ -284,8 +296,38 @@ def sort_product():
             print("Pilihan tidak valid")
 
 def search_product():
-    print("Coming soon!")
-    pass
+    print("\n1. Berdasarkan Nama")
+    print("2. Berdasarkan ID")
+    print("3. Berdasarkan Kategori")
+    print("0. Kembali")
+    pilihan_search = input("Pilih: ").strip()
+    match pilihan_search:
+        case "1":
+            keyword = input("Masukkan Nama: ").strip()
+            results = products.find_by_name(keyword)
+            if results: 
+                display(results)
+            else:
+                print("Produk tidak ditemukan")
+        case "2":
+            keyword = input("Masukkan ID: ").strip()
+            results = products.find_by_id(keyword)
+            if results: 
+                display([results])
+            else:
+                print("Produk tidak ditemukan")
+        case "3":
+            category = input("Masukkan Kategori: ").strip()
+            results = products.find_by_category(category)
+            if results:
+                display(results)
+            else:
+                print("Produk tidak ditemukan")
+        case "0":
+            pass
+        case _:
+            print("Pilihan tidak valid")
+
 
 def main_buyer():
     while True:
@@ -350,7 +392,7 @@ def main_seller():
             input("\nTekan Enter untuk lanjut...")
             os.system("cls" if os.name == "nt" else "clear")
 
-#Main Func
+#Start Func
 def main():
     load_file()
     while True:
