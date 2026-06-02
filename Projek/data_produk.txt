@@ -37,3 +37,4 @@
 002,Lato Lato Mojokerto,Mainan,15000,90
 044,Ayam Toge,Makanan,20000,40
 045,Telur Rebus,Buah,10000,15
+042,Ayam Kat,Makanan,20000,20

@@ -3,7 +3,8 @@ from ProjekMenu import *
 from Tree import *
 from LinkedList import *
 
-FILE = "Projek\data_produk.txt"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE = os.path.join(BASE_DIR, "data_produk.txt")
 products = LinkedList()
 
 #Load, save, dan show File dengan template
