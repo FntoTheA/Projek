@@ -580,6 +580,26 @@ def show_logo():
      🛒 SISTEM KATEGORI PRODUK 🛒
     """)
 
+def show_buyer_logo():
+    print(r"""
+██████╗ ██╗   ██╗██╗   ██╗███████╗██████╗
+██╔══██╗██║   ██║╚██╗ ██╔╝██╔════╝██╔══██╗
+██████╔╝██║   ██║ ╚████╔╝ █████╗  ██████╔╝
+██╔══██╗██║   ██║  ╚██╔╝  ██╔══╝  ██╔══██╗
+██████╔╝╚██████╔╝   ██║   ███████╗██║  ██║
+╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝
+""")
+
+def show_seller_logo():
+    print(r"""
+███████╗███████╗██╗     ██╗     ███████╗██████╗
+██╔════╝██╔════╝██║     ██║     ██╔════╝██╔══██╗
+███████╗█████╗  ██║     ██║     █████╗  ██████╔╝
+╚════██║██╔══╝  ██║     ██║     ██╔══╝  ██╔══██╗
+███████║███████╗███████╗███████╗███████╗██║  ██║
+╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+""")
+
 #Start Func
 def main():
     
@@ -598,9 +618,11 @@ def main():
         pilihan = input("Pilih menu (0-2): ").strip()
         if pilihan == "1":
             os.system("cls" if os.name == "nt" else "clear")
+            show_buyer_logo()
             main_buyer()
         elif pilihan == "2":
             os.system("cls" if os.name == "nt" else "clear")
+            show_seller_logo()
             main_seller()
         elif pilihan == "0":
             print("\n[INFO] Program selesai. Sampai jumpa!")
