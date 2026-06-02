@@ -8,176 +8,9 @@
 
 import os
 import time
-
-FILE = "data_produk.txt"
-
-# LL untuk data
-class Node:
-    def __init__(self, id, name, category, price, stock):
-        self.id       = id
-        self.name     = name
-        self.category = category
-        self.price    = price
-        self.stock    = stock
-        self.next     = None
-
-class LinkedList:
-    def __init__(self):
-        self.head = None
-
-    def append(self, id, name, category, price, stock):
-        new_node = Node(id, name, category, price, stock)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
-
-    #SequentialSearch
-    def find_by_id(self, id):
-        current = self.head
-        while current:
-            if current.id == id:
-                return current
-            current = current.next
-        return None
-
-    def find_by_name(self, keyword):
-        results = []
-        current = self.head
-        while current:
-            if keyword.lower() in current.name.lower():
-                results.append(current)
-            current = current.next
-        return results
-
-    def find_by_category(self, category):
-        results = []
-        current = self.head
-        while current:
-            if category.lower() in current.category.lower():
-                results.append(current)
-            current = current.next
-        return results
-
-    # Generic Merge Sort
-    def mergeSort(self, head, criteria):
-        if not head or not head.next:
-            return head
-        
-        middle = self.getmiddle(head)
-        next_middle = middle.next
-        middle.next = None
-        
-        left = self.mergeSort(head, criteria)
-        right = self.mergeSort(next_middle, criteria)
-        
-        return self.sortedMerge(left, right, criteria)
-
-    def getmiddle(self, head):
-        if not head:
-            return head
-        
-        slow = head
-        fast = head.next
-        
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        return slow
-
-    def sortedMerge(self, a, b, criteria):
-        if not a:
-            return b
-        if not b:
-            return a
-        
-        val_a = getattr(a, criteria)
-        val_b = getattr(b, criteria)
-        
-        if val_a <= val_b:
-            result = a
-            result.next = self.sortedMerge(a.next, b, criteria)
-        else:
-            result = b
-            result.next = self.sortedMerge(a, b.next, criteria)
-        return result
-
-    def sortingUrutanAbjad(self):
-        self.head = self.mergeSort(self.head, "name")
-
-    def sortingBerdasarkanKategori(self):
-        self.head = self.mergeSort(self.head, "category")
-
-    def sortingBerdasarkanHarga(self):
-        self.head = self.mergeSort(self.head, "price")
-
-    def sortingBerdasarkanStok(self):
-        self.head = self.mergeSort(self.head, "stock")
-        
-    def delete(self, id):
-        if not self.head:
-            return False
-        if self.head.id == id:
-            self.head = self.head.next
-            return True
-        prev, current = self.head, self.head.next
-        while current:
-            if current.id == id:
-                prev.next = current.next
-                return True
-            prev, current = current, current.next
-        return False
-
-    def to_list(self):
-        result  = []
-        current = self.head
-        while current:
-            result.append(current)
-            current = current.next
-        return result
-
-products = LinkedList()
-
-#Load, save, dan show File dengan template
-def load_file():
-    products.head = None
-    if not os.path.exists(FILE):
-        return
-    with open(FILE) as f:
-        for line in f:
-            data = [x.strip() for x in line.strip().split(",")]
-            if len(data) == 5:
-                products.append(data[0], data[1], data[2], int(data[3]), int(data[4]))
-
-def save_file():
-    with open(FILE, "w") as f:
-        current = products.head
-        while current:
-            f.write(f"{current.id},{current.name},{current.category},{current.price},{current.stock}\n")
-            current = current.next
-
-def print_header(max_name=30, max_cat=20):
-    print(f"\n{'ID':<8} {'Nama':<{max_name}} {'Kategori':<{max_cat}} {'Harga':>10} {'Stok':>6}")
-    total_len = 8 + 1 + max_name + 1 + max_cat + 1 + 10 + 1 + 6
-    print("-" * total_len)
-
-def print_row(node, max_name=30, max_cat=20):
-    print(f"{node.id:<8} {node.name:<{max_name}} {node.category:<{max_cat}} {node.price:>10,} {node.stock:>6}")
-
-def display(nodes=None):
-    nodes = nodes if nodes is not None else products.to_list()
-    if not nodes:
-        print_header()
-        print("  (tidak ada data)")
-    else:
-        max_name = max(30, max(len(node.name) for node in nodes))
-        max_cat = max(20, max(len(node.category) for node in nodes))
-        print_header(max_name, max_cat)
-        for node in nodes:
-            print_row(node, max_name, max_cat)
+from LinkedList import *
+from Tree import *
+from FileHandling import *
 
 def beli_produk():
     print("\n==================================================")
@@ -271,6 +104,114 @@ def beli_produk():
         else:
             print("\n[ERROR] Pilihan tidak valid.")
 
+# Fungsi navigasi tree untuk menjelajahi kategori (Pembeli & Penjual)
+def browse_categories():
+    """Menu interaktif untuk menjelajahi kategori bertingkat"""
+    root = build_category_tree()
+    current = root
+
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+
+        # Tampilkan path navigasi
+        path = []
+        node = current
+        while node:
+            path.append(node.name)
+            node = node.parent
+        path_str = " > ".join(reversed(path))
+
+        print(f"\n{'='*50}")
+        print(f"  {path_str}")
+        print(f"{'='*50}")
+
+        # Tampilkan subkategori
+        if current.children:
+            print(" Subkategori:")
+            for idx, child in enumerate(current.children, 1):
+                print(f"  [{idx}] {child.name}")
+            print("-" * 50)
+
+        # Ambil produk yang cocok dengan kategori ini & semua sub-nya
+        valid_names = current.get_all_leaf_names()
+        matching = []
+        p = products.head
+        while p:
+            if p.category in valid_names:
+                matching.append(p)
+            p = p.next
+
+        if matching:
+            print(f"\n Produk ({len(matching)} item):")
+            display(matching)
+        else:
+            print("\n  (tidak ada produk di kategori ini)")
+
+        print(f"\n{'='*50}")
+        if current.parent:
+            print(" [0] Kembali ke atas")
+        else:
+            print(" [0] Keluar dari penjelajahan")
+        if current.children:
+            print(f" [1-{len(current.children)}] Pilih subkategori")
+        print(f"{'='*50}")
+
+        pilihan = input("Pilih: ").strip()
+        if pilihan == "0":
+            if current.parent:
+                current = current.parent
+            else:
+                break
+        elif current.children and pilihan.isdigit() and 1 <= int(pilihan) <= len(current.children):
+            current = current.children[int(pilihan) - 1]
+        else:
+            print("\n[ERROR] Pilihan tidak valid.")
+            input("Tekan Enter untuk lanjut...")
+
+# Fungsi pemilihan kategori via tree (untuk add/update produk)
+def select_category_from_tree():
+    """Navigasi tree untuk memilih kategori produk. Return nama kategori atau None jika batal."""
+    root = build_category_tree()
+    current = root
+
+    while True:
+        # Tampilkan path navigasi
+        path = []
+        node = current
+        while node:
+            path.append(node.name)
+            node = node.parent
+        path_str = " > ".join(reversed(path))
+
+        print(f"\n{'='*50}")
+        print(f"  PILIH KATEGORI: {path_str}")
+        print(f"{'='*50}")
+
+        if current.children:
+            for idx, child in enumerate(current.children, 1):
+                print(f"  [{idx}] {child.name}")
+
+        print("-" * 50)
+        if current != root:
+            print(f"  [P] Pilih '{current.name}' sebagai kategori")
+            print(f"  [0] Kembali")
+        else:
+            print(f"  [0] Batal")
+        print("-" * 50)
+
+        pilihan = input("Pilih: ").strip().upper()
+
+        if pilihan == "0":
+            if current == root:
+                return None
+            current = current.parent
+        elif pilihan == "P" and current != root:
+            return current.name
+        elif current.children and pilihan.isdigit() and 1 <= int(pilihan) <= len(current.children):
+            current = current.children[int(pilihan) - 1]
+        else:
+            print("[ERROR] Pilihan tidak valid.")
+
 #CRUD
 def add_product():
     print("\n==================================================")
@@ -300,11 +241,11 @@ def add_product():
 
     name = name_title
 
-    category = input("Kategori   : ").strip()
+    print("\n Pilih kategori produk melalui navigasi tree:")
+    category = select_category_from_tree()
     if not category:
-        print("\n[ERROR] Kategori tidak boleh kosong.")
+        print("\n[INFO] Penambahan produk dibatalkan.")
         return
-    category = category.title()
 
     price_str = input("Harga      : ").strip()
     if not price_str.isdigit():
@@ -321,7 +262,7 @@ def add_product():
     products.append(id, name, category, price, stock)
     save_file()
     print("\n==================================================")
-    print("[SUCCESS] Produk berhasil ditambahkan!")
+    print(f"[SUCCESS] Produk berhasil ditambahkan! (Kategori: {category})")
     print("==================================================")
 
 def view_product():
@@ -374,10 +315,14 @@ def update_product():
                     print("\n[SUCCESS] Nama berhasil diubah.")
                 
         elif pilihan == "2":
-            category = input(f"Kategori baru [{p.category}]: ").strip()
-            if category: 
-                p.category = category.title()
-                print("\n[SUCCESS] Kategori berhasil diubah.")
+            print(f"\n Kategori saat ini: {p.category}")
+            print(" Pilih kategori baru melalui navigasi tree:")
+            new_cat = select_category_from_tree()
+            if new_cat:
+                p.category = new_cat
+                print(f"\n[SUCCESS] Kategori berhasil diubah ke '{new_cat}'.")
+            else:
+                print("\n[INFO] Perubahan kategori dibatalkan.")
                 
         elif pilihan == "3":
             price = input(f"Harga baru [{p.price}]: ").strip()
@@ -513,9 +458,10 @@ def main_buyer():
         print(" [2] Urutkan Produk")
         print(" [3] Cari Produk")
         print(" [4] Beli Produk")
+        print(" [5] Jelajahi Kategori")
         print(" [0] Kembali")
         print("==================================================")
-        pilihan = input("Pilih menu (0-4): ").strip()
+        pilihan = input("Pilih menu (0-5): ").strip()
         if pilihan == "1":
             view_product()
         elif pilihan == "2":
@@ -524,13 +470,15 @@ def main_buyer():
             search_product()
         elif pilihan == "4":
             beli_produk()
+        elif pilihan == "5":
+            browse_categories()
         elif pilihan == "0":
             os.system("cls" if os.name == "nt" else "clear")
             break
         else:
             print("\n[ERROR] Pilihan tidak valid.")
         
-        if pilihan != "0":
+        if pilihan != "0" and pilihan != "5":
             input("\nTekan Enter untuk lanjut...")
             os.system("cls" if os.name == "nt" else "clear")
 
@@ -546,9 +494,10 @@ def main_seller():
         print(" [4] Hapus Produk")
         print(" [5] Urutkan Produk")
         print(" [6] Cari Produk")
+        print(" [7] Jelajahi Kategori")
         print(" [0] Kembali")
         print("==================================================")
-        pilihan = input("Pilih menu (0-6): ").strip()
+        pilihan = input("Pilih menu (0-7): ").strip()
         if pilihan == "1":
             add_product()
         elif pilihan == "2":
@@ -561,13 +510,15 @@ def main_seller():
             sort_product()
         elif pilihan == "6":
             search_product()
+        elif pilihan == "7":
+            browse_categories()
         elif pilihan == "0":
             os.system("cls" if os.name == "nt" else "clear")
             break
         else:
             print("\n[ERROR] Pilihan tidak valid.")
         
-        if pilihan != "0":
+        if pilihan != "0" and pilihan != "7":
             input("\nTekan Enter untuk lanjut...")
             os.system("cls" if os.name == "nt" else "clear")
 
