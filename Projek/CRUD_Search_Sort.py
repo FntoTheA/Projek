@@ -249,3 +249,82 @@ def beli_produk():
             break
         else:
             print("\n[ERROR] Pilihan tidak valid.")
+
+def sort_product():
+    print("\n==================================================")
+    print("                 URUTKAN PRODUK                   ")
+    print("==================================================")
+    print(" [1] Berdasarkan Nama (Abjad)") 
+    print(" [2] Berdasarkan Kategori")
+    print(" [3] Berdasarkan Harga")
+    print(" [4] Berdasarkan Stok") 
+    print(" [0] Kembali")
+    print("==================================================")
+    pilihan_sorting = input("Pilih menu (0-4): ").strip()
+    match pilihan_sorting:
+        case "1":
+            products.sortingUrutanAbjad()
+            print("\n[SUCCESS] Diurutkan berdasarkan Nama.")
+            display()
+        case "2":
+            products.sortingBerdasarkanKategori()
+            print("\n[SUCCESS] Diurutkan berdasarkan Kategori.")
+            display()
+        case "3":
+            products.sortingBerdasarkanHarga()
+            print("\n[SUCCESS] Diurutkan berdasarkan Harga.")
+            display()
+        case "4":
+            products.sortingBerdasarkanStok()
+            print("\n[SUCCESS] Diurutkan berdasarkan Stok.")
+            display()
+        case "0":
+            pass
+        case _:
+            print("\n[ERROR] Pilihan tidak valid.")
+
+def search_product():
+    print("\n==================================================")
+    print("                  CARI PRODUK                     ")
+    print("==================================================")
+    print(" [1] Berdasarkan Nama")
+    print(" [2] Berdasarkan ID")
+    print(" [3] Berdasarkan Kategori")
+    print(" [0] Kembali")
+    print("==================================================")
+    pilihan_search = input("Pilih menu (0-3): ").strip()
+    match pilihan_search:
+        case "1":
+            keyword = input("Masukkan Nama Produk: ").strip()
+            results = products.find_by_name(keyword)
+            if results: 
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
+                display(results)
+            else:
+                print("\n[ERROR] Produk tidak ditemukan.")
+        case "2":
+            keyword = input("Masukkan ID Produk: ").strip()
+            results = products.find_by_id(keyword)
+            if results: 
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
+                display([results])
+            else:
+                print("\n[ERROR] Produk tidak ditemukan.")
+        case "3":
+            category = input("Masukkan Kategori: ").strip()
+            results = products.find_by_category(category)
+            if results:
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
+                display(results)
+            else:
+                print("\n[ERROR] Produk tidak ditemukan.")
+        case "0":
+            pass
+        case _:
+            print("\n[ERROR] Pilihan tidak valid.")
