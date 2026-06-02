@@ -147,7 +147,7 @@ def load_file():
         return
     with open(FILE) as f:
         for line in f:
-            data = line.strip().split(",")
+            data = [x.strip() for x in line.strip().split(",")]
             if len(data) == 5:
                 products.append(data[0], data[1], data[2], int(data[3]), int(data[4]))
 
@@ -287,6 +287,7 @@ def add_product():
     if not name:
         print("\n[ERROR] Nama Produk tidak boleh kosong.")
         return
+    name = name.title()
 
     category = input("Kategori   : ").strip()
     if not category:
@@ -346,7 +347,7 @@ def update_product():
         if pilihan == "1":
             name = input(f"Nama baru [{p.name}]: ").strip()
             if name: 
-                p.name = name
+                p.name = name.title()
                 print("\n[SUCCESS] Nama berhasil diubah.")
                 
         elif pilihan == "2":
