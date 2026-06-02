@@ -1,7 +1,7 @@
-from FileHandling import *
-from ProjekMenu import *
-from Tree import *
+# from Tree import *
 from LinkedList import *
+from FileHandling import *
+from Tree import *
 #CRUD
 def add_product():
     print("\n==================================================")
@@ -32,6 +32,7 @@ def add_product():
     name = name_title
 
     print("\n Pilih kategori produk melalui navigasi tree:")
+    from Tree import select_category_from_tree
     category = select_category_from_tree()
     if not category:
         print("\n[INFO] Penambahan produk dibatalkan.")
@@ -107,6 +108,7 @@ def update_product():
         elif pilihan == "2":
             print(f"\n Kategori saat ini: {p.category}")
             print(" Pilih kategori baru melalui navigasi tree:")
+            from Tree import select_category_from_tree
             new_cat = select_category_from_tree()
             if new_cat:
                 p.category = new_cat
