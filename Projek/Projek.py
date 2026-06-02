@@ -615,11 +615,11 @@ def loading_system():
 def main():
 
     loading_system()
-    os.system("cls" if os.name == "nt" else "clear")
-    show_logo()
     
     load_file()
     while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        show_logo()
         print("\n==================================================")
         print("                   MENU LOGIN                     ")
         print("==================================================")
