@@ -287,7 +287,17 @@ def add_product():
     if not name:
         print("\n[ERROR] Nama Produk tidak boleh kosong.")
         return
-    name = name.title()
+    name_title = name.title()
+
+    # Pastikan tidak ada produk dengan nama yang sama sebelumnya
+    current = products.head
+    while current:
+        if current.name.lower() == name_title.lower():
+            print("\n[ERROR] Nama Produk sudah terdaftar.")
+            return
+        current = current.next
+
+    name = name_title
 
     category = input("Kategori   : ").strip()
     if not category:
@@ -347,8 +357,20 @@ def update_product():
         if pilihan == "1":
             name = input(f"Nama baru [{p.name}]: ").strip()
             if name: 
-                p.name = name.title()
-                print("\n[SUCCESS] Nama berhasil diubah.")
+                name_title = name.title()
+                duplicate = False
+                current = products.head
+                while current:
+                    if current != p and current.name.lower() == name_title.lower():
+                        duplicate = True
+                        break
+                    current = current.next
+                
+                if duplicate:
+                    print("\n[ERROR] Nama Produk sudah terdaftar.")
+                else:
+                    p.name = name_title
+                    print("\n[SUCCESS] Nama berhasil diubah.")
                 
         elif pilihan == "2":
             category = input(f"Kategori baru [{p.category}]: ").strip()

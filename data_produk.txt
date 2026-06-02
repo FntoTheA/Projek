@@ -1,37 +1,38 @@
-001,Ayam Broiler Khas Grobogan,Makanan,69000,39
-030,Ayam Kate Vs Ayam Utan,Hewan,75000,12
-017,Badai Topan Selat Karimata,Tiket,85000,15
+007,Yanto Pasuruan,Tiket,0,1
 023,Badak Jawa Cula Dua,Hewan,9999999,1
-035,Bakso Mercon Kediri,Makanan,18000,55
-005,Bandung Lautan Api,Tiket,50000,30
-033,Batu Akik Madura,Aksesoris,50000,25
-031,Beras Ketan Sumedang,Makanan,20000,60
-003,Buah Khuldi Samarinda,Buah,25000,50
-020,Buah Salak Ngawi,Buah,10000,100
-009,Fuad Dua Belas,Jasa,0,12
-012,Gelombang Tsunami India,Tiket,100000,10
-008,Gendang Klutuk Sunda,Mainan,20000,40
-011,Hollad Bakery Grobogan,Makanan,30000,60
-021,Jamur Enoki Purwokerto,Makanan,18000,40
-029,Jembatan Pelintasan Ngawi,Tiket,5000,100
+018,Virus Zombie Minang,Obat,666666,3
+028,Mas Fuad Menghitamkan,Jasa,15000,5
+006,Rudal Jawa,Mainan,999999,5
+032,Monyet Ijo Banyumas,Hewan,80000,8
 022,Kadal Ngawi,Hewan,50000,10
+012,Gelombang Tsunami India,Tiket,100000,10
 037,Kereta Api Argo Ngawi Jes Gejes,Tiket,150000,10
-034,Kopi Vietnam Cirebon,Minuman,15000,70
+009,Fuad Dua Belas,Jasa,0,12
+030,Ayam Kate Vs Ayam Utan,Hewan,75000,12
+024,Zombie Bandung,Tiket,70000,15
+017,Badai Topan Selat Karimata,Tiket,85000,15
+026,Mas Faiz Joget Kece Banget,Jasa,10000,20
+027,Mas Reza Kece Banget,Jasa,10000,20
+010,Tanah Longsor Himalaya,Tiket,75000,20
 013,Kuda Lumping Ponorogo,Mainan,35000,25
+033,Batu Akik Madura,Aksesoris,50000,25
+036,Tikus Got Kalimantan,Hewan,10000,30
+040,Salak,Buah,30000,30
+005,Bandung Lautan Api,Tiket,50000,30
+025,Martabak Meksiko Mas Fuad,Makanan,25000,35
+001,Ayam Broiler Khas Grobogan,Makanan,69000,39
+021,Jamur Enoki Purwokerto,Makanan,18000,40
+008,Gendang Klutuk Sunda,Mainan,20000,40
+016,Nasi Cumi Hitam Bertelor Madura,Makanan,20000,45
+003,Buah Khuldi Samarinda,Buah,25000,50
+035,Bakso Mercon Kediri,Makanan,18000,55
+031,Beras Ketan Sumedang,Makanan,20000,60
+011,Hollad Bakery Grobogan,Makanan,30000,60
 015,Laba Laba Jawa,Mainan,5000,70
 014,Laba Laba Sunda,Mainan,5000,70
-002,Lato Lato Mojokerto,Mainan,15000,120
-025,Martabak Meksiko Mas Fuad,Makanan,25000,35
-026,Mas Faiz Joget Kece Banget,Jasa,10000,20
-028,Mas Fuad Menghitamkan,Jasa,15000,10
-027,Mas Reza Kece Banget,Jasa,10000,20
-032,Monyet Ijo Banyumas,Hewan,80000,8
-016,Nasi Cumi Hitam Bertelor Madura,Makanan,20000,45
+034,Kopi Vietnam Cirebon,Minuman,15000,70
 004,Pischok Lumer Probolinggo,Snack,10000,80
 019,Rambutan Ponorogo,Buah,12000,90
-006,Rudal Jawa,Mainan,999999,5
-010,Tanah Longsor Himalaya,Tiket,75000,20
-036,Tikus Got Kalimantan,Hewan,10000,30
-018,Virus Zombie Minang,Obat,666666,3
-007,Yanto Pasuruan,Tiket,0,1
-024,Zombie Bandung,Tiket,70000,15
+029,Jembatan Pelintasan Ngawi,Tiket,5000,100
+020,Buah Salak Ngawi,Buah,10000,100
+002,Lato Lato Mojokerto,Mainan,15000,120
