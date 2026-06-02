@@ -35,6 +35,5 @@
 018,Virus Zombie Minang,Obat,666666,3
 007,Yanto Pasuruan,Tiket,0,1
 024,Zombie Bandung,Tiket,70000,15
-040,aaaa,Aaa,12000,1
 041,Aaa,Misc,120000,12
 042,Ayam Rebus,Makanan,12000,40
