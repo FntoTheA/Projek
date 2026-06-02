@@ -125,3 +125,4 @@ class LinkedList:
             result.append(current)
             current = current.next
         return result
+

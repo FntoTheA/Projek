@@ -34,5 +34,5 @@
 019,Rambutan Ponorogo,Buah,12000,10
 029,Jembatan Pelintasan Ngawi,Tiket,5000,100
 020,Buah Salak Ngawi,Buah,10000,100
-002,Lato Lato Mojokerto,Mainan,15000,120
+002,Lato Lato Mojokerto,Mainan,15000,90
 041,Ayam,Makanan,20000,20
