@@ -115,9 +115,7 @@ class LinkedList:
 
     def sortingBerdasarkanStok(self):
         self.head = self.mergeSort(self.head, "stock")
-
-  
-
+        
     def delete(self, id):
         if not self.head:
             return False
