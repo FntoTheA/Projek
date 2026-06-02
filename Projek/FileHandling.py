@@ -3,7 +3,7 @@ from ProjekMenu import *
 from Tree import *
 from LinkedList import *
 
-FILE = "data_produk.txt"
+FILE = "Projek\data_produk.txt"
 products = LinkedList()
 
 #Load, save, dan show File dengan template
