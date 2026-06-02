@@ -4,7 +4,6 @@
 #                   2. Azzura Mori / A1
 #                   3. Fuad Nizard Attaqi / A1
 # Judul: Sistem Kategori Produk Shopping
-# Progress : 40%
 # ================================================================================
 
 import os
@@ -180,6 +179,40 @@ def display(nodes=None):
         print_header(max_name, max_cat)
         for node in nodes:
             print_row(node, max_name, max_cat)
+
+def beli_produk():
+    #Bisa juga search by ID atau nama
+    display()
+    id = input("Pilih produk (ID): ").strip()
+    p = products.find_by_id(id)
+    
+    if not p:
+        print("Produk tidak ditemukan.")
+        return
+
+    while True:
+        print("\n----------------------------------------")
+        print(f"       BELI PRODUK: {p.id}")
+        print("----------------------------------------")
+        print(f"1. Beli {p.name} (Stok: {p.stock})")
+        print("0. Kembali")
+        
+        pilihan = input("Pilih: ").strip()
+        
+        if pilihan == "1":
+            jumlah = int(input("Jumlah: "))
+            if jumlah > p.stock:
+                print("Stok tidak cukup.")
+            else:
+                p.stock -= jumlah
+                save_file()
+                print(f"{jumlah} {p.name} berhasil dibeli.")
+                break
+        elif pilihan == "0":
+            break
+        else:
+            print("Pilihan tidak valid.")
+
 #CRUD
 def add_product():
     id = input("ID Produk  : ").strip()
@@ -337,6 +370,7 @@ def main_buyer():
         print("1. Lihat Semua Produk")
         print("2. Urutkan Produk")
         print("3. Cari Produk")
+        print("4. Beli Produk")
         print("0. Kembali")
         print("========================================")
         pilihan = input("Pilih: ")
@@ -346,6 +380,8 @@ def main_buyer():
             sort_product()
         elif pilihan == "3":
             search_product()
+        elif pilihan == "4":
+            beli_produk()
         elif pilihan == "0":
             os.system("cls" if os.name == "nt" else "clear")
             break
