@@ -6,6 +6,7 @@
 # Judul: Sistem Kategori Produk Shopping
 # ================================================================================
 
+from time import time
 import os
 import time
 from LinkedList import *
@@ -155,6 +156,7 @@ def main():
             main_seller()
         elif pilihan == "0":
             print("\n[INFO] Program selesai. Sampai jumpa!")
+            time.sleep(3)
             break
         else:
             print("\n[ERROR] Pilihan tidak valid.")

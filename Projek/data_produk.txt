@@ -4,15 +4,19 @@
 028,Mas Fuad Menghitamkan,Jasa,15000,5
 006,Rudal Jawa,Mainan,999999,5
 032,Monyet Ijo Banyumas,Hewan,80000,8
+019,Rambutan Ponorogo,Buah,12000,10
 022,Kadal Ngawi,Hewan,50000,10
 012,Gelombang Tsunami India,Tiket,100000,10
 037,Kereta Api Argo Ngawi Jes Gejes,Tiket,150000,10
-009,Fuad Dua Belas,Buah,0,12
+009,Fuad Dua Belas,Jasa,0,12
 030,Ayam Kate Vs Ayam Utan,Hewan,75000,12
+045,Telur Rebus,Buah,10000,15
 024,Zombie Bandung,Tiket,70000,15
 017,Badai Topan Selat Karimata,Tiket,85000,15
 026,Mas Faiz Joget Kece Banget,Jasa,10000,20
 027,Mas Reza Kece Banget,Jasa,10000,20
+042,Ayam Kat,Makanan,20000,20
+003,Buah Khuldi Samarinda,Buah,25000,20
 010,Tanah Longsor Himalaya,Tiket,75000,20
 013,Kuda Lumping Ponorogo,Mainan,35000,25
 033,Batu Akik Madura,Aksesoris,50000,25
@@ -23,7 +27,6 @@
 021,Jamur Enoki Purwokerto,Makanan,18000,40
 008,Gendang Klutuk Sunda,Mainan,20000,40
 016,Nasi Cumi Hitam Bertelor Madura,Makanan,20000,45
-003,Buah Khuldi Samarinda,Buah,25000,20
 035,Bakso Mercon Kediri,Makanan,18000,55
 031,Beras Ketan Sumedang,Makanan,20000,60
 011,Hollad Bakery Grobogan,Makanan,30000,60
@@ -31,10 +34,7 @@
 014,Laba Laba Sunda,Mainan,5000,70
 034,Kopi Vietnam Cirebon,Minuman,15000,70
 004,Pischok Lumer Probolinggo,Snack,10000,80
-019,Rambutan Ponorogo,Buah,12000,10
-029,Jembatan Pelintasan Ngawi,Tiket,5000,100
-020,Buah Salak Ngawi,Buah,10000,100
 002,Lato Lato Mojokerto,Mainan,15000,90
-044,Ayam Toge,Makanan,20000,40
-045,Telur Rebus,Buah,10000,15
-042,Ayam Kat,Makanan,20000,20
+029,Jembatan Pelintasan Ngawi,Tiket,5000,100
+020,Buah Salak Ngawi,Buah,10000,70
+040,Samsung S26,HP,26000000,5
