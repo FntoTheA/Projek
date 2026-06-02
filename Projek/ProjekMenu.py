@@ -6,7 +6,6 @@
 # Judul: Sistem Kategori Produk Shopping
 # ================================================================================
 
-from time import time
 import os
 import time
 from LinkedList import *
