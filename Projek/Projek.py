@@ -181,7 +181,6 @@ def display(nodes=None):
             print_row(node, max_name, max_cat)
 
 def beli_produk():
-    #Bisa juga search by ID atau nama
     display()
     id = input("Pilih produk (ID): ").strip()
     p = products.find_by_id(id)
