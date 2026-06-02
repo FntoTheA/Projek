@@ -1,8 +1,8 @@
 # ================================================================================
 # Nama Kelompok: 02J
-# Anggota Kelompok: 1. Azhar Fawwaz Haris (Ketua) / A2
-#                   2. Azzura Mori / A1
-#                   3. Fuad Nizard Attaqi / A1
+# Anggota Kelompok: 1. Azhar Fawwaz Haris (Ketua) / A2 / J0403251043
+#                   2. Azzura Mori / A1 / J0403251074
+#                   3. Fuad Nizard Attaqi / A1 / J0403251086
 # Judul: Sistem Kategori Produk Shopping
 # ================================================================================
 
