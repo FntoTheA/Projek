@@ -505,6 +505,7 @@ def search_product():
 
 def main_buyer():
     while True:
+        show_buyer_logo()
         print("\n==================================================")
         print("                  MENU PEMBELI                    ")
         print("==================================================")
@@ -535,6 +536,7 @@ def main_buyer():
 
 def main_seller():
     while True:
+        show_seller_logo()
         print("\n==================================================")
         print("                  MENU PENJUAL                    ")
         print("==================================================")
@@ -630,11 +632,9 @@ def main():
         pilihan = input("Pilih menu (0-2): ").strip()
         if pilihan == "1":
             os.system("cls" if os.name == "nt" else "clear")
-            show_buyer_logo()
             main_buyer()
         elif pilihan == "2":
             os.system("cls" if os.name == "nt" else "clear")
-            show_seller_logo()
             main_seller()
         elif pilihan == "0":
             print("\n[INFO] Program selesai. Sampai jumpa!")
