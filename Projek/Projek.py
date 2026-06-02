@@ -181,198 +181,318 @@ def display(nodes=None):
             print_row(node, max_name, max_cat)
 
 def beli_produk():
+    print("\n==================================================")
+    print("                 BELI PRODUK                      ")
+    print("==================================================")
     display()
-    id = input("Pilih produk (ID): ").strip()
-    p = products.find_by_id(id)
-    
-    if not p:
-        print("Produk tidak ditemukan.")
+    print("\nPilih Metode Pencarian:")
+    print(" [1] Berdasarkan ID")
+    print(" [2] Berdasarkan Nama")
+    print(" [0] Kembali")
+    print("--------------------------------------------------")
+    pilihan = input("Pilih metode (0-2): ").strip()
+    p = None
+    if pilihan == "0":
         return
-
+    elif pilihan == "1":
+        id = input("Masukkan ID Produk: ").strip()
+        p = products.find_by_id(id)
+        if not p:
+            print("\n[ERROR] Produk dengan ID tersebut tidak ditemukan.")
+            return
+    elif pilihan == "2":
+        name = input("Masukkan Nama Produk: ").strip()
+        results = products.find_by_name(name)
+        if not results:
+            print("\n[ERROR] Produk dengan nama tersebut tidak ditemukan.")
+            return
+        if len(results) == 1:
+            p = results[0]
+        else:
+            print("\n==================================================")
+            print("             HASIL PENCARIAN PRODUK               ")
+            print("==================================================")
+            display(results)
+            print("--------------------------------------------------")
+            id_pilihan = input("Pilih ID produk yang ingin dibeli: ").strip()
+            for item in results:
+                if item.id == id_pilihan:
+                    p = item
+                    break
+            if not p:
+                print("\n[ERROR] ID produk tidak valid atau tidak ada di hasil pencarian.")
+                return
+    else:
+        print("\n[ERROR] Pilihan tidak valid.")
+        return
+    
     while True:
-        print("\n----------------------------------------")
-        print(f"       BELI PRODUK: {p.id}")
-        print("----------------------------------------")
-        print(f"1. Beli {p.name} (Stok: {p.stock})")
-        print("0. Kembali")
+        print("\n==================================================")
+        print("              KONFIRMASI PEMBELIAN                ")
+        print("==================================================")
+        print(f" Nama Produk : {p.name}")
+        print(f" ID Produk   : {p.id}")
+        print(f" Kategori    : {p.category}")
+        print(f" Harga       : Rp {p.price:,}")
+        print(f" Stok Tersedia: {p.stock}")
+        print("--------------------------------------------------")
+        print(" [1] Lanjutkan Pembelian")
+        print(" [0] Batal / Kembali")
+        print("==================================================")
         
-        pilihan = input("Pilih: ").strip()
+        pilihan = input("Pilih menu (0-1): ").strip()
         
         if pilihan == "1":
-            jumlah = int(input("Jumlah: "))
-            if jumlah > p.stock:
-                print("Stok tidak cukup.")
+            jumlah_str = input("Masukkan Jumlah Pembelian: ").strip()
+            if not jumlah_str.isdigit():
+                print("\n[ERROR] Jumlah harus berupa angka bulat positif.")
+                continue
+            jumlah = int(jumlah_str)
+            if jumlah <= 0:
+                print("\n[ERROR] Jumlah pembelian harus lebih dari 0.")
+            elif jumlah > p.stock:
+                print("\n[ERROR] Stok tidak mencukupi.")
             else:
                 p.stock -= jumlah
                 save_file()
-                print(f"{jumlah} {p.name} berhasil dibeli.")
+                total_harga = jumlah * p.price
+                print("\n==================================================")
+                print("               STRUK PEMBELIAN                    ")
+                print("==================================================")
+                print(f" Produk      : {p.name}")
+                print(f" Jumlah      : {jumlah} pcs")
+                print(f" Harga/pc    : Rp {p.price:,}")
+                print("--------------------------------------------------")
+                print(f" TOTAL BAYAR : Rp {total_harga:,}")
+                print("==================================================")
+                print("[SUCCESS] Pembelian berhasil diselesaikan!")
                 break
         elif pilihan == "0":
             break
         else:
-            print("Pilihan tidak valid.")
+            print("\n[ERROR] Pilihan tidak valid.")
 
 #CRUD
 def add_product():
+    print("\n==================================================")
+    print("                TAMBAH PRODUK BARU                ")
+    print("==================================================")
     id = input("ID Produk  : ").strip()
+    if not id:
+        print("\n[ERROR] ID Produk tidak boleh kosong.")
+        return
     if products.find_by_id(id):
-        print("ID sudah ada."); return
+        print("\n[ERROR] ID Produk sudah terdaftar.")
+        return
 
     name     = input("Nama       : ").strip()
+    if not name:
+        print("\n[ERROR] Nama Produk tidak boleh kosong.")
+        return
+
     category = input("Kategori   : ").strip()
-    price    = int(input("Harga      : "))
-    stock    = int(input("Stok       : "))
+    if not category:
+        print("\n[ERROR] Kategori tidak boleh kosong.")
+        return
+    category = category.title()
+
+    price_str = input("Harga      : ").strip()
+    if not price_str.isdigit():
+        print("\n[ERROR] Harga harus berupa angka bulat positif.")
+        return
+    price = int(price_str)
+
+    stock_str = input("Stok       : ").strip()
+    if not stock_str.isdigit():
+        print("\n[ERROR] Stok harus berupa angka bulat positif.")
+        return
+    stock = int(stock_str)
 
     products.append(id, name, category, price, stock)
     save_file()
-    print(f"'{name}' berhasil ditambahkan.")
+    print("\n==================================================")
+    print("[SUCCESS] Produk berhasil ditambahkan!")
+    print("==================================================")
 
 def view_product():
+    print("\n==================================================")
+    print("                DAFTAR SEMUA PRODUK               ")
+    print("==================================================")
     display()
 
 def update_product():
+    print("\n==================================================")
+    print("                 UBAH DATA PRODUK                 ")
+    print("==================================================")
     display()
-    id = input("\nPilih produk (ID): ").strip()
+    id = input("\nPilih produk yang ingin diubah (ID): ").strip()
     p  = products.find_by_id(id)
     
     if not p:
-        print("Produk tidak ditemukan.")
+        print("\n[ERROR] Produk tidak ditemukan.")
         return
 
     while True:
-        print("\n----------------------------------------")
-        print(f"       UBAH DATA PRODUK: {p.id}")
-        print("----------------------------------------")
-        print(f"1. Nama     : {p.name}")
-        print(f"2. Kategori : {p.category}")
-        print(f"3. Harga    : {p.price}")
-        print(f"4. Stok     : {p.stock}")
-        print("0. Selesai")
+        print("\n==================================================")
+        print(f"            UBAH DATA PRODUK: {p.id}")
+        print("==================================================")
+        print(f" [1] Nama     : {p.name}")
+        print(f" [2] Kategori : {p.category}")
+        print(f" [3] Harga    : Rp {p.price:,}")
+        print(f" [4] Stok     : {p.stock}")
+        print(" [0] Selesai & Simpan")
+        print("==================================================")
         
-        pilihan = input("Pilih: ").strip()
+        pilihan = input("Pilih menu (0-4): ").strip()
         
         if pilihan == "1":
             name = input(f"Nama baru [{p.name}]: ").strip()
             if name: 
                 p.name = name
-                print("Nama berhasil diubah.")
+                print("\n[SUCCESS] Nama berhasil diubah.")
                 
         elif pilihan == "2":
             category = input(f"Kategori baru [{p.category}]: ").strip()
             if category: 
                 p.category = category.title()
-                print("Kategori berhasil diubah.")
+                print("\n[SUCCESS] Kategori berhasil diubah.")
                 
         elif pilihan == "3":
             price = input(f"Harga baru [{p.price}]: ").strip()
             if price.isdigit(): 
                 p.price = int(price)
-                print("Harga berhasil diubah.")
+                print("\n[SUCCESS] Harga berhasil diubah.")
             elif price:
-                print("Harga harus berupa angka.")
+                print("\n[ERROR] Harga harus berupa angka bulat positif.")
                 
         elif pilihan == "4":
             stock = input(f"Stok baru [{p.stock}]: ").strip()
             if stock.isdigit(): 
                 p.stock = int(stock)
-                print("Stok berhasil diubah.")
+                print("\n[SUCCESS] Stok berhasil diubah.")
             elif stock:
-                print("Stok harus berupa angka.")
+                print("\n[ERROR] Stok harus berupa angka bulat positif.")
                 
         elif pilihan == "0":
             save_file()
-            print("\nData berhasil diperbarui dan disimpan ke file.")
+            print("\n[SUCCESS] Data berhasil diperbarui dan disimpan!")
             break
             
         else:
-            print("Pilihan tidak valid.")
+            print("\n[ERROR] Pilihan tidak valid.")
 
 def delete_product():
+    print("\n==================================================")
+    print("                   HAPUS PRODUK                   ")
+    print("==================================================")
     display()
-    id = input("\nID produk yang ingin dihapus: ").strip()
+    id = input("\nMasukkan ID produk yang ingin dihapus: ").strip()
     p  = products.find_by_id(id)
     if not p:
-        print("Produk tidak ditemukan."); return
+        print("\n[ERROR] Produk tidak ditemukan.")
+        return
 
-    confirm = input(f"Hapus '{p.name}'? (y/n): ")
+    print("\n--------------------------------------------------")
+    confirm = input(f"Apakah Anda yakin ingin menghapus '{p.name}'? (y/n): ")
     if confirm.lower() == "y":
         products.delete(id)
         save_file()
-        print(f"'{p.name}' berhasil dihapus.")
+        print(f"\n[SUCCESS] '{p.name}' berhasil dihapus.")
     else:
-        print("Batal.")
+        print("\n[INFO] Penghapusan dibatalkan.")
 
 def sort_product():
-    print("\n1. Berdasarkan Urutan Abjad") 
-    print("2. Berdasarkan Kategori")
-    print("3. Berdasarkan Harga")
-    print("4. Berdasarkan Stok") 
-    print("0. Kembali")
-    pilihan_sorting = input("Pilih: ").strip()
+    print("\n==================================================")
+    print("                 URUTKAN PRODUK                   ")
+    print("==================================================")
+    print(" [1] Berdasarkan Nama (Abjad)") 
+    print(" [2] Berdasarkan Kategori")
+    print(" [3] Berdasarkan Harga")
+    print(" [4] Berdasarkan Stok") 
+    print(" [0] Kembali")
+    print("==================================================")
+    pilihan_sorting = input("Pilih menu (0-4): ").strip()
     match pilihan_sorting:
         case "1":
             products.sortingUrutanAbjad()
+            print("\n[SUCCESS] Diurutkan berdasarkan Nama.")
             display()
         case "2":
             products.sortingBerdasarkanKategori()
+            print("\n[SUCCESS] Diurutkan berdasarkan Kategori.")
             display()
         case "3":
             products.sortingBerdasarkanHarga()
+            print("\n[SUCCESS] Diurutkan berdasarkan Harga.")
             display()
         case "4":
             products.sortingBerdasarkanStok()
+            print("\n[SUCCESS] Diurutkan berdasarkan Stok.")
             display()
         case "0":
             pass
         case _:
-            print("Pilihan tidak valid")
+            print("\n[ERROR] Pilihan tidak valid.")
 
 def search_product():
-    print("\n1. Berdasarkan Nama")
-    print("2. Berdasarkan ID")
-    print("3. Berdasarkan Kategori")
-    print("0. Kembali")
-    pilihan_search = input("Pilih: ").strip()
+    print("\n==================================================")
+    print("                  CARI PRODUK                     ")
+    print("==================================================")
+    print(" [1] Berdasarkan Nama")
+    print(" [2] Berdasarkan ID")
+    print(" [3] Berdasarkan Kategori")
+    print(" [0] Kembali")
+    print("==================================================")
+    pilihan_search = input("Pilih menu (0-3): ").strip()
     match pilihan_search:
         case "1":
-            keyword = input("Masukkan Nama: ").strip()
+            keyword = input("Masukkan Nama Produk: ").strip()
             results = products.find_by_name(keyword)
             if results: 
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
                 display(results)
             else:
-                print("Produk tidak ditemukan")
+                print("\n[ERROR] Produk tidak ditemukan.")
         case "2":
-            keyword = input("Masukkan ID: ").strip()
+            keyword = input("Masukkan ID Produk: ").strip()
             results = products.find_by_id(keyword)
             if results: 
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
                 display([results])
             else:
-                print("Produk tidak ditemukan")
+                print("\n[ERROR] Produk tidak ditemukan.")
         case "3":
             category = input("Masukkan Kategori: ").strip()
             results = products.find_by_category(category)
             if results:
+                print("\n==================================================")
+                print("             HASIL PENCARIAN PRODUK               ")
+                print("==================================================")
                 display(results)
             else:
-                print("Produk tidak ditemukan")
+                print("\n[ERROR] Produk tidak ditemukan.")
         case "0":
             pass
         case _:
-            print("Pilihan tidak valid")
+            print("\n[ERROR] Pilihan tidak valid.")
 
 
 def main_buyer():
     while True:
-        print("\n========================================")
-        print("             MENU PEMBELI               ")
-        print("========================================")
-        print("1. Lihat Semua Produk")
-        print("2. Urutkan Produk")
-        print("3. Cari Produk")
-        print("4. Beli Produk")
-        print("0. Kembali")
-        print("========================================")
-        pilihan = input("Pilih: ")
+        print("\n==================================================")
+        print("                  MENU PEMBELI                    ")
+        print("==================================================")
+        print(" [1] Lihat Semua Produk")
+        print(" [2] Urutkan Produk")
+        print(" [3] Cari Produk")
+        print(" [4] Beli Produk")
+        print(" [0] Kembali")
+        print("==================================================")
+        pilihan = input("Pilih menu (0-4): ").strip()
         if pilihan == "1":
             view_product()
         elif pilihan == "2":
@@ -385,7 +505,7 @@ def main_buyer():
             os.system("cls" if os.name == "nt" else "clear")
             break
         else:
-            print("Pilihan tidak valid")
+            print("\n[ERROR] Pilihan tidak valid.")
         
         if pilihan != "0":
             input("\nTekan Enter untuk lanjut...")
@@ -393,18 +513,18 @@ def main_buyer():
 
 def main_seller():
     while True:
-        print("\n========================================")
-        print("             MENU PENJUAL               ")
-        print("========================================")
-        print("1. Tambah Produk")
-        print("2. Lihat Semua Produk")
-        print("3. Ubah Produk")
-        print("4. Hapus Produk")
-        print("5. Urutkan Produk")
-        print("6. Cari Produk")
-        print("0. Kembali")
-        print("========================================")
-        pilihan = input("Pilih: ")
+        print("\n==================================================")
+        print("                  MENU PENJUAL                    ")
+        print("==================================================")
+        print(" [1] Tambah Produk")
+        print(" [2] Lihat Semua Produk")
+        print(" [3] Ubah Produk")
+        print(" [4] Hapus Produk")
+        print(" [5] Urutkan Produk")
+        print(" [6] Cari Produk")
+        print(" [0] Kembali")
+        print("==================================================")
+        pilihan = input("Pilih menu (0-6): ").strip()
         if pilihan == "1":
             add_product()
         elif pilihan == "2":
@@ -421,7 +541,7 @@ def main_seller():
             os.system("cls" if os.name == "nt" else "clear")
             break
         else:
-            print("Pilihan tidak valid")
+            print("\n[ERROR] Pilihan tidak valid.")
         
         if pilihan != "0":
             input("\nTekan Enter untuk lanjut...")
@@ -431,14 +551,14 @@ def main_seller():
 def main():
     load_file()
     while True:
-        print("\n========================================")
-        print("             MENU LOGIN                 ")
-        print("========================================")
-        print("1. Masuk sebagai Pembeli")
-        print("2. Masuk sebagai Penjual")
-        print("0. Keluar")
-        print("========================================")
-        pilihan = input("Pilih: ")
+        print("\n==================================================")
+        print("                   MENU LOGIN                     ")
+        print("==================================================")
+        print(" [1] Masuk sebagai Pembeli")
+        print(" [2] Masuk sebagai Penjual")
+        print(" [0] Keluar")
+        print("==================================================")
+        pilihan = input("Pilih menu (0-2): ").strip()
         if pilihan == "1":
             os.system("cls" if os.name == "nt" else "clear")
             main_buyer()
@@ -446,10 +566,10 @@ def main():
             os.system("cls" if os.name == "nt" else "clear")
             main_seller()
         elif pilihan == "0":
-            print("\nProgram selesai.")
+            print("\n[INFO] Program selesai. Sampai jumpa!")
             break
         else:
-            print("Pilihan tidak valid")
+            print("\n[ERROR] Pilihan tidak valid.")
             input("\nTekan Enter untuk lanjut...")
             os.system("cls" if os.name == "nt" else "clear")
 
