@@ -7,6 +7,7 @@
 # ================================================================================
 
 import os
+import time
 
 FILE = "data_produk.txt"
 
@@ -600,9 +601,20 @@ def show_seller_logo():
 ╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
 """)
 
+def loading_system():
+    print("\nMemulai Sistem Shopping...\n")
+
+    for i in range(0, 101, 10):
+        bar = "■" * (i // 10) + "□" * (10 - i // 10)
+        print(f"\r[{bar}] {i}%", end="")
+        time.sleep(0.15)
+
+    print("\n")
+
 #Start Func
 def main():
-    
+
+    loading_system()
     os.system("cls" if os.name == "nt" else "clear")
     show_logo()
     
