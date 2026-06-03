@@ -9,6 +9,7 @@ products = LinkedList()
 
 #Load, save, dan show File dengan template
 def load_file():
+    """Membaca data produk dari file ke linked list."""
     products.head = None
     if not os.path.exists(FILE):
         return
@@ -19,6 +20,7 @@ def load_file():
                 products.append(data[0], data[1], data[2], int(data[3]), int(data[4]))
 
 def save_file():
+    """Menyimpan data produk dari linked list ke file."""
     with open(FILE, "w") as f:
         current = products.head
         while current:
@@ -26,14 +28,17 @@ def save_file():
             current = current.next
 
 def print_header(max_name=30, max_cat=20):
+    """Mencetak header tabel produk."""
     print(f"\n{'ID':<8} {'Nama':<{max_name}} {'Kategori':<{max_cat}} {'Harga':>10} {'Stok':>6}")
     total_len = 8 + 1 + max_name + 1 + max_cat + 1 + 10 + 1 + 6
     print("-" * total_len)
 
 def print_row(node, max_name=30, max_cat=20):
+    """Mencetak satu baris data produk."""
     print(f"{node.id:<8} {node.name:<{max_name}} {node.category:<{max_cat}} {node.price:>10,} {node.stock:>6}")
 
 def display(nodes=None):
+    """Menampilkan daftar produk dalam bentuk tabel."""
     nodes = nodes if nodes is not None else products.to_list()
     if not nodes:
         print_header()

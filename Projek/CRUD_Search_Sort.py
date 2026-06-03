@@ -4,6 +4,11 @@ from FileHandling import *
 from Tree import *
 #CRUD
 def add_product():
+    """
+    Menambahkan produk baru ke dalam sistem. Pengguna diminta menginput ID, Nama,
+    Kategori (melalui navigasi tree), Harga, dan Stok. Produk baru kemudian ditambahkan
+    ke dalam Linked List dan perubahan disimpan ke file.
+    """
     print("\n==================================================")
     print("                TAMBAH PRODUK BARU                ")
     print("==================================================")
@@ -57,12 +62,19 @@ def add_product():
     print("==================================================")
 
 def view_product():
+    """
+    Menampilkan tabel daftar seluruh produk yang ada di sistem ke terminal.
+    """
     print("\n==================================================")
     print("                DAFTAR SEMUA PRODUK               ")
     print("==================================================")
     display()
 
 def update_product():
+    """
+    Mengubah data spesifik dari suatu produk (Nama, Kategori, Harga, atau Stok) berdasarkan ID produk.
+    Pengguna dapat melakukan beberapa pembaruan data secara interaktif sebelum akhirnya disimpan.
+    """
     print("\n==================================================")
     print("                 UBAH DATA PRODUK                 ")
     print("==================================================")
@@ -141,6 +153,10 @@ def update_product():
             print("\n[ERROR] Pilihan tidak valid.")
 
 def delete_product():
+    """
+    Menghapus produk dari sistem berdasarkan ID produk. Pengguna dimintai konfirmasi (y/n)
+    sebelum produk benar-benar dihapus dari Linked List dan file penyimpanan diperbarui.
+    """
     print("\n==================================================")
     print("                   HAPUS PRODUK                   ")
     print("==================================================")
@@ -161,6 +177,11 @@ def delete_product():
         print("\n[INFO] Penghapusan dibatalkan.")
 
 def beli_produk():
+    """
+    Memandu alur pembelian produk oleh pembeli. Pembeli dapat mencari produk lewat ID atau Nama,
+    menginputkan jumlah pembelian, memeriksa ketersediaan stok, memotong stok jika memadai,
+    dan mencetak struk/nota pembelian sebagai bukti transaksi.
+    """
     print("\n==================================================")
     print("                 BELI PRODUK                      ")
     print("==================================================")
@@ -253,6 +274,10 @@ def beli_produk():
             print("\n[ERROR] Pilihan tidak valid.")
 
 def sort_product():
+    """
+    Menampilkan menu pengurutan produk. Pengguna dapat mengurutkan berdasarkan nama (abjad),
+    kategori, harga, atau stok. Pengurutan dilakukan menggunakan Merge Sort pada Linked List.
+    """
     print("\n==================================================")
     print("                 URUTKAN PRODUK                   ")
     print("==================================================")
@@ -286,6 +311,10 @@ def sort_product():
             print("\n[ERROR] Pilihan tidak valid.")
 
 def search_product():
+    """
+    Menyediakan menu pencarian produk dengan beberapa filter: Nama, ID, atau Kategori.
+    Hasil pencarian yang cocok akan langsung ditampilkan dalam format tabel di terminal.
+    """
     print("\n==================================================")
     print("                  CARI PRODUK                     ")
     print("==================================================")

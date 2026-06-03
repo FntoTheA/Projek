@@ -14,7 +14,12 @@ from FileHandling import *
 from CRUD_Search_Sort import *
 
 #Buyer Menu
+#Buyer Menu
 def main_buyer():
+    """
+    Menampilkan menu interaktif utama untuk Pembeli, menyediakan akses ke fitur
+    lihat produk, urutkan produk, cari produk, beli produk, dan jelajahi kategori.
+    """
     while True:
         show_buyer_logo()
         print("\n==================================================")
@@ -47,8 +52,12 @@ def main_buyer():
         if pilihan != "0" and pilihan != "5":
             input("\nTekan Enter untuk lanjut...")
             os.system("cls" if os.name == "nt" else "clear")
-
+#seller Menu
 def main_seller():
+    """
+    Menampilkan menu interaktif utama untuk Penjual, menyediakan akses ke fitur
+    tambah, lihat, ubah, hapus, urutkan, cari produk, dan jelajahi kategori.
+    """
     while True:
         show_seller_logo()
         print("\n==================================================")
@@ -89,6 +98,9 @@ def main_seller():
             os.system("cls" if os.name == "nt" else "clear")
 
 def show_logo():
+    """
+    Mencetak logo utama program (Sistem Kategori Produk Online) berbentuk teks ASCII Art.
+    """
     print(r"""
  ███████╗██╗  ██╗ ██████╗ ██████╗
  ██╔════╝██║  ██║██╔═══██╗██╔══██╗
@@ -101,6 +113,9 @@ def show_logo():
     """)
 
 def show_buyer_logo():
+    """
+    Mencetak logo khusus Menu Pembeli berbentuk teks ASCII Art.
+    """
     print(r"""
 ██████╗ ██╗   ██╗██╗   ██╗███████╗██████╗
 ██╔══██╗██║   ██║╚██╗ ██╔╝██╔════╝██╔══██╗
@@ -111,6 +126,9 @@ def show_buyer_logo():
 """)
 
 def show_seller_logo():
+    """
+    Mencetak logo khusus Menu Penjual berbentuk teks ASCII Art.
+    """
     print(r"""
 ███████╗███████╗██╗     ██╗     ███████╗██████╗
 ██╔════╝██╔════╝██║     ██║     ██╔════╝██╔══██╗
@@ -121,6 +139,9 @@ def show_seller_logo():
 """)
 
 def loading_system():
+    """
+    Menampilkan simulasi animasi progress bar (loading) saat program pertama kali dijalankan.
+    """
     print("\nMemulai Sistem Shopping...\n")
 
     for i in range(0, 101, 10):
@@ -132,6 +153,10 @@ def loading_system():
 
 #Start Func
 def main():
+    """
+    Fungsi utama program. Memulai animasi loading, memuat data produk dari file,
+    serta menyediakan menu login untuk memilih masuk sebagai Pembeli, Penjual, atau Keluar.
+    """
 
     loading_system()
     
